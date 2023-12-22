@@ -1,39 +1,24 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
+import { TestBed } from '@angular/core/testing';
 import { Injectable } from '@angular/core'
 import { type CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router'
+import { RouterTestingModule } from '@angular/router/testing';
 import Swal from 'sweetalert2'
 import { isTokenExpired } from '../help/jwt-token'
+import { authGuardGuard } from './auth-guard.guard';
+describe('userGuardGuard', () => {
+  let guard:authGuardGuard;
+  
+  
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule], // If your guard uses the router
+      providers: [authGuardGuard],
+    });
+    guard = TestBed.inject(authGuardGuard);
+  });
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthGuard implements CanActivate {
-  constructor (private readonly router: Router) {}
-
-  canActivate (route: ActivatedRouteSnapshot): boolean {
-    const role = route.parent?.routeConfig?.path
-    const token = localStorage.getItem(`${role}Token`)
-
-    if (token === null || isTokenExpired(token)) {
-      if (role !== 'user') {
-        void this.router.navigate([`/${role}/login`])
-        return false
-      }
-
-      void Swal.fire({
-        title: 'You are not logged in',
-        text: 'Do you want to redirect to login page',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Login',
-        cancelButtonText: 'Cancel'
-      }).then(result => {
-        if (result.isConfirmed) {
-          void this.router.navigate(['/user/login'])
-        }
-      })
-      return false
-    }
-    return true
-  }
-}
+  it('should be created', () => {
+    expect(guard).toBeTruthy();
+  });
+});

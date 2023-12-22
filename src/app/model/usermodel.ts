@@ -5,8 +5,8 @@ export interface User {
     lastName: string;
     email: string;
     password: string;
-    mobile?: number;
-    dob: Date;
+    phoneNumber: number;
+    role:string
     isBlocked: boolean;
     profilePic?: string;
     wallet: number;
@@ -27,3 +27,9 @@ export interface User {
     message:string
     success:boolean
   }
+
+  export interface appUsers {
+    data?: User[],
+    success: boolean;
+    message: string;
+}

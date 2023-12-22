@@ -14,18 +14,19 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 
-import { PageNotFoundComponent } from './components/pageNotFound/page-not-found/page-not-found.component';
-// import { SwingTradeComponent } from './swing-trade/swing-trade.component';
-// import { OptionBuyingComponent } from './option-buying/option-buying.component';
-// import { OptionSellingComponent } from './option-selling/option-selling.component';
-// import { SideBarComponent } from './side-bar/side-bar.component';
+import { PageNotFoundComponent } from './components/pageNotFound/page-not-found.component';
+
+
+
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent
-  
+    PageNotFoundComponent,
+ 
+
   ],
   imports: [
     BrowserModule,

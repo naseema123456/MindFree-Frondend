@@ -13,13 +13,10 @@ export class UserGuardGuard implements CanActivate {
     console.log('user guard working');
     const role = route.parent?.routeConfig?.path
     const token = localStorage.getItem(`userToken`)
+
 console.log(role);
 
-    if (token === null || isTokenExpired(token)) {
-      if (role !== 'user') {
-        void this.router.navigate([`/${role}/login`])
-        return false
-      }
+    if (token === null || isTokenExpired(token) ||!token) {
 
       void Swal.fire({
         title: 'You are not logged in',

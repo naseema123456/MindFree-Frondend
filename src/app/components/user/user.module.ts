@@ -27,7 +27,7 @@ import { SwingTradeComponent } from './swing-trade/swing-trade.component';
     HomeComponent,
     OtpverificationComponent,
     UserProfileComponentComponent,
-    // SideBarComponent,
+    SideBarComponent,
     OptionBuyingComponent,
     OptionSellingComponent,
     SwingTradeComponent
@@ -45,11 +45,12 @@ import { SwingTradeComponent } from './swing-trade/swing-trade.component';
     HomeComponent,
     OtpverificationComponent,
     UserProfileComponentComponent,
-    // SideBarComponent,
+    SideBarComponent,
     OptionBuyingComponent,
     OptionSellingComponent,
     SwingTradeComponent
-  ]
+  ],
+  
 })
 export class UserModule { }
 
