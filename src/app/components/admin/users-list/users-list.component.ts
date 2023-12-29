@@ -3,6 +3,7 @@ import { ServiceService } from 'src/app/service.service';
 import { appUsers ,User } from 'src/app/model/usermodel';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-users-list',
@@ -19,8 +20,12 @@ export class UsersListComponent implements OnInit {
     private router: Router,
     private http: HttpClient,
     ) { }
+
+    initializeComponent(): void {
+      this.loadUsers();
+    }
   ngOnInit(): void {
-    this.loadUsers();
+    this.initializeComponent();
 
   }
 
@@ -50,7 +55,30 @@ export class UsersListComponent implements OnInit {
   addUser(){
     this.router.navigate(['/admin/addUser',])
   }
-
+  Blocked(isBlocked: boolean,_id:string): void {
+ 
+    const data = { isBlocked: isBlocked ,_id:_id};
+    console.log(data.isBlocked,data._id);
+    
+    this.http.post('/admin/Blocked',data, { withCredentials: true }).subscribe(
+      (response) => {
+     
+        console.log(response,"............");
+   
+        Swal.fire({
+          icon: 'success',
+          title: 'User updated successfully',
+          showConfirmButton: false,
+          timer: 1500, // Adjust the timer as needed
+        });
+        this.initializeComponent();
+     
+      },
+      (err) => {
+        Swal.fire("Error", err.error.message, "error");
+      }
+    );
+  }
 
 
   search(): void {

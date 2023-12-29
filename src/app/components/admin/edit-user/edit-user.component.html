@@ -4,23 +4,19 @@
     
     <form class="space-y-6" [formGroup]="form" (submit)="onSubmit()">
         <h2 class="text-center">Edit User</h2>
+      
         <div>
-            <label for="isBlocked" class="block text-sm font-medium leading-6 text-gray-900">Blocked</label>
-            <div class="mt-2">
-                <input id="isBlocked" formControlName="isBlocked" name="isBlocked"[value]="isBlocked" type="text" autocomplete="given-name" required class="form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-            
-            
-            </div>
+          <label for="role" class="block text-sm font-medium leading-6 text-gray-900">Role</label>
+          <div class="mt-2">
+            <select id="role" formControlName="role" name="role" required 
+                    class="form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+              <option value="callprovider">Call Provider</option>
+            </select>
+          </div>
         </div>
-
-        <div>
-            <label for="role" class="block text-sm font-medium leading-6 text-gray-900">role</label>
-            <div class="mt-2">
-                <input id="role"formControlName="role"[value]="role" name="lastName" type="text" autocomplete="family-name" required class="form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              
-
-            </div>
-        </div>
+        
 
      
       

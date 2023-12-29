@@ -14,9 +14,12 @@ export interface User {
     walletHistory:[] ;
   
   }
-  
+  export interface userProfile {
+    userDetails: User
+}
   export interface IApiUserRes {
     status: number
+    success:boolean
     message: string
     id:string
     data:  User[] | []
@@ -26,6 +29,7 @@ export interface User {
   export interface otpverify{
     message:string
     success:boolean
+
   }
 
   export interface appUsers {

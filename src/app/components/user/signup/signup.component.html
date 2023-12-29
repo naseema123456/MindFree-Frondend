@@ -1,18 +1,15 @@
-
-<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-    
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img class="mx-auto h-10 w-auto" src="/assets/image/2.png" alt="Your Company">
-
-        <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign up for an account</h2>
-    </div>
-
-    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form class="space-y-6"  [formGroup]="form" (submit)="onSubmit()" >
+<div class="max-w-sm mx-auto">
+    <div class="bg-white shadow-md border border-gray-200 rounded-lg p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700 shadow-md">
+      <div class="flex flex-col justify-center items-center">
+        <img class="mx-auto h-8 w-auto" src="/assets/image/2.png" alt="Your Company">
+        <h2 class="mt-4 text-center text-lg font-bold leading-6 tracking-tight text-gray-900">Sign up for an account</h2>
+      </div>
+  
+      <form class="mt-4 space-y-4" [formGroup]="form" (submit)="onSubmit()">
             <div>
                 <label for="firstName" class="block text-sm font-medium leading-6 text-gray-900">First Name</label>
                 <div class="mt-2">
-                    <input id="firstName" formControlName="firstName"name="firstName" type="text" autocomplete="given-name" required class="form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    <input id="firstName" formControlName="firstName"name="firstName" type="text" autocomplete="given-name" required class="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     <div *ngIf="isSubmitted &&  f['firstName'].errors">
                         <div *ngIf="f['firstName'].errors['required']" style="color: red;">First Name is required</div>
                     </div>
@@ -23,7 +20,7 @@
             <div>
                 <label for="lastName" class="block text-sm font-medium leading-6 text-gray-900">Last Name</label>
                 <div class="mt-2">
-                    <input id="lastName"formControlName="lastName" name="lastName" type="text" autocomplete="family-name" required class="form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    <input id="lastName"formControlName="lastName" name="lastName" type="text" autocomplete="family-name" required class="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     <div *ngIf="isSubmitted &&  f['lastName'].errors">
                         <div *ngIf="f['lastName'].errors['required']" style="color: red;">Last Name is required</div>
                     </div>
@@ -34,7 +31,7 @@
             <div>
                 <label for="phoneNumber" class="block text-sm font-medium leading-6 text-gray-900">Phone Number</label>
                 <div class="mt-2">
-                    <input id="phoneNumber"formControlName="phoneNumber"  name="phoneNumber" type="tel" autocomplete="tel" required class="form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    <input id="phoneNumber"formControlName="phoneNumber"  name="phoneNumber" type="tel" autocomplete="tel" required class="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     <div *ngIf="isSubmitted &&  f['phoneNumber'].errors">
                         <div *ngIf="f['phoneNumber'].errors['required']" style="color: red;">Mobile Number is required</div>
                         <div *ngIf="f['phoneNumber']?.errors?.['pattern']" style="color: red;">Invalid Mobile Number</div>
@@ -46,7 +43,7 @@
             <div>
                 <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
                 <div class="mt-2">
-                    <input id="email" formControlName="email" name="email" type="email" autocomplete="email" required class="form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    <input id="email" formControlName="email" name="email" type="email" autocomplete="email" required class="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     <div *ngIf="isSubmitted && f['email'].errors">
                         <div *ngIf="f['email']?.errors?.['required']" style="color: red;">Email is required</div>
             
@@ -62,7 +59,7 @@
             <div>
                 <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
                 <div class="mt-2">
-                    <input id="password"formControlName="password"  name="password" type="password" autocomplete="new-password" required class="form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    <input id="password"formControlName="password"  name="password" type="password" autocomplete="new-password" required class="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     <div *ngIf="isSubmitted && f['password'].errors">
                         <div *ngIf="f['password'].errors['required']" style="color: red;">Password is required</div>
                     </div>
@@ -72,25 +69,24 @@
             <div>
                 <label for="rePassword" class="block text-sm font-medium leading-6 text-gray-900">Confirm Password</label>
                 <div class="mt-2">
-                    <input id="rePassword"formControlName="rePassword"  name="rePassword" type="password" autocomplete="new-password" required class="form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    <input id="rePassword"formControlName="rePassword"  name="rePassword" type="password" autocomplete="new-password" required class="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     <div *ngIf="isSubmitted && f['rePassword'].errors">
                         <div *ngIf="f['rePassword'].errors['required']" style="color: red;">Password is required</div>
                     </div>
                 </div>
             </div>
 
-            <div>
-                <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign up</button>
-            </div>
-        </form>
-
-        <p class="mt-10 text-center text-sm text-gray-500">
-            Already have an account?
-            <a href="/user/login" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign in</a>
-        </p>
-    </div>
-</div>
-
+            <button type="submit" class="w-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring focus:border-indigo-300">
+                Sign up
+              </button>
+            </form>
+        
+            <p class="mt-2 text-center text-sm text-gray-500">
+              Already have an account?
+              <a href="/user/login" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign in</a>
+            </p>
+          </div>
+        </div>
 
 <!-- Add this modal HTML at the end of your signup.component.html -->
 <div *ngIf="isSubmitted && form.hasError('passwordMismatch')" class="fixed inset-0 z-10 overflow-y-auto">

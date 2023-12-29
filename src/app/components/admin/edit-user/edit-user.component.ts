@@ -68,19 +68,6 @@ export class EditUserComponent implements OnInit{
   console.log('submit',user);
 
 
-  if (user.role === '' || user.isBlocked === '') {
-    Swal.fire('Error', 'Please enter all the fields', 'error');
-  } else if (user.role !== 'user' && user.role !== 'admin' && user.role !== 'callProvider') {
-    Swal.fire('Error', 'Please enter a valid role (user, admin, callProvider)', 'error');
-} else if (typeof user.isBlocked !== 'boolean' && user.isBlocked !== 'true' && user.isBlocked !== 'false') {
-    Swal.fire('Error', 'IsBlocked should be a boolean value', 'error');
-  } else {
-    if (user.isBlocked === 'false') {
-      user.isBlocked = false;
-  }
-  if (user.isBlocked === 'true') {
-    user.isBlocked = true;
-  }
       this.http.post<IApiUserRes>('/admin/editUser', user, { withCredentials: true }).subscribe(
         (response:IApiUserRes) => {
           // console.log(response,"............");
@@ -100,4 +87,4 @@ export class EditUserComponent implements OnInit{
       );
     }
   }
-}
+

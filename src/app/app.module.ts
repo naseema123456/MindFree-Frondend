@@ -15,6 +15,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 import { PageNotFoundComponent } from './components/pageNotFound/page-not-found.component';
+import { StoreModule } from '@ngrx/store';
 
 
 
@@ -35,6 +36,7 @@ import { PageNotFoundComponent } from './components/pageNotFound/page-not-found.
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    StoreModule.forRoot({}, {}),
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:UrlInterceptorInterceptor,multi:true}

@@ -29,6 +29,8 @@ export class SignupComponent implements OnInit {
       rePassword: ['', Validators.required]
     });
   }
+
+ 
   ValidateEmail = (email: string): boolean => {
     var validRejex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     if (email.match(validRejex)) {
@@ -77,7 +79,7 @@ export class SignupComponent implements OnInit {
         (response:IApiUserRes) => {
           console.log(response,"............");
          let Id=response.id
-          localStorage.setItem('userToken', response.token)
+    
           this.router.navigate(['/user/otpverification'],{ queryParams: { id: response.id } });
         },
         (err) => {
