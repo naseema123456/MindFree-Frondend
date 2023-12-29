@@ -1,5 +1,5 @@
-import { User } from "src/app/model/usermodel";
+// import { User } from "src/app/model/usermodel";
 
-export interface appProfile {
-  userdetails: User;
-}
+// export interface appProfile {
+//   userdetails: User;
+// }

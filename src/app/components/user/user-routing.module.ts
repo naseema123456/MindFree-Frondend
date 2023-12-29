@@ -11,7 +11,6 @@ import { SwingTradeComponent } from './swing-trade/swing-trade.component';
 import { OptionBuyingComponent } from './option-buying/option-buying.component';
 import { OptionSellingComponent } from './option-selling/option-selling.component';
 import { AuthGuardGuard } from 'src/app/guard/auth-guard.guard';
-import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -35,8 +34,6 @@ const routes: Routes = [
     path:'optionBuying',component:OptionBuyingComponent,canActivate:[UserGuardGuard]
   },{
     path:'optionSelling',component:OptionSellingComponent,canActivate:[UserGuardGuard]
-  },{
-    path:'profile',component:ProfileComponent,canActivate:[UserGuardGuard]
   },
 
   

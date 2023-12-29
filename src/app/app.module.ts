@@ -41,6 +41,6 @@ import { StoreModule } from '@ngrx/store';
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:UrlInterceptorInterceptor,multi:true}
   ],
-  bootstrap: [AppComponent]
+  // bootstrap: [AppComponent]
 })
 export class AppModule { }
