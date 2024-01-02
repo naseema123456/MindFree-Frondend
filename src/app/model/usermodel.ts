@@ -5,13 +5,13 @@ export interface User {
     lastName: string;
     email: string;
     password: string;
-    phoneNumber: number;
+    phoneNumber: number | null,
     role:string
     isBlocked: boolean;
     profilePic?: string;
-    wallet: number;
-    address?: string;
-    walletHistory:[] ;
+    wallet?: number;
+    address?: {};
+    walletHistory?:[] ;
   
   }
   export interface userProfile {

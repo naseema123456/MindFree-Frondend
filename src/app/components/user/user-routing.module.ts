@@ -11,6 +11,9 @@ import { SwingTradeComponent } from './swing-trade/swing-trade.component';
 import { OptionBuyingComponent } from './option-buying/option-buying.component';
 import { OptionSellingComponent } from './option-selling/option-selling.component';
 import { AuthGuardGuard } from 'src/app/guard/auth-guard.guard';
+import { ProfileComponent } from './profile/profile.component';
+import { RequestComponent } from './request/request.component';
+import { TradingComponent } from './trading/trading.component';
 
 
 
@@ -23,7 +26,7 @@ const routes: Routes = [
     path:'login',component:LoginComponent,canActivate:[AuthGuardGuard]
   },
   {
-    path:'otpverification',component:OtpverificationComponent
+    path:'otpverification',component:OtpverificationComponent,canActivate:[AuthGuardGuard]
   },
   {
     path:'home',component:HomeComponent,canActivate:[UserGuardGuard]
@@ -36,7 +39,17 @@ const routes: Routes = [
     path:'optionSelling',component:OptionSellingComponent,canActivate:[UserGuardGuard]
   },
 
+  {
+    path:'profile',component:ProfileComponent,canActivate:[UserGuardGuard]
+  },
+  {
+    path:'request',component:RequestComponent,canActivate:[UserGuardGuard]
+  },
+  {
+    path:'trading',component:TradingComponent,canActivate:[UserGuardGuard]
+  },
   
+
   {
     path: '',
     redirectTo: 'login',

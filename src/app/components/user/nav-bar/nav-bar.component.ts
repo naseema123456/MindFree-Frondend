@@ -14,6 +14,7 @@ export class NavBarComponent {
     private router: Router
   ) {}
 
+  
   logout(){
   console.log('hiiiiii');
   

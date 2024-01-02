@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/model/usermodel';
+import { IApiUserRes } from 'src/app/model/usermodel';
 
 @Injectable()
 export class appService {
@@ -10,16 +11,11 @@ export class appService {
   }
   constructor(private http: HttpClient) {}
 
-  loadUsers(): Observable<User[]> {
-    return this.http.get<User[]>('http://localhost:3000/adminUsers', {
-      withCredentials: true,
-    });
-  }
 
   loadProfile() {
     console.log("loadprofile() is called");
     
-    return this.http.get('http://localhost:3000/api/user/profile', {
+    return this.http.get('/user/profile', {
       withCredentials: true,
     });
   }
@@ -33,15 +29,36 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  laodUsers(){
-    return this.http.get('http://localhost:3000/api/admin/usersList',{ withCredentials: true });
+  mapResponseToUser(response: IApiUserRes): User | null {
+    if (response.data && response.data.length > 0) {
+      // Assuming you want to return the first user if there are multiple
+      return response.data[0];
+    } else {
+      return null;
+    }
   }
-
   loadProfile(){
 
-    const profileData =  this.http.get('http://localhost:3000/api/user/profile',{ withCredentials: true });
-    // console.log(profileData,'profiledata from service');
-    return profileData
-    
+    const profileData =  this.http.get<IApiUserRes>('/user/profile',{ withCredentials: true,    headers: { 'Bypass-Interceptor': 'true' }  });
+
+    profileData.subscribe(
+      (response: IApiUserRes) => {
+        // console.log('Profile data from service:', response);
+   
+        const user = this.mapResponseToUser(response);
+
+        // Do something with the user data
+        // console.log(user);
+
+        // If you want to return the user data, you can emit it using a Subject or BehaviorSubject
+        // For simplicity, I'm returning the entire response here
+      },
+      (error) => {
+        console.error('Error loading profile data:', error);
+        // Handle the error
+      }
+    );
+
+    return profileData;
   }
 }

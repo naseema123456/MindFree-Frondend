@@ -16,9 +16,11 @@ export class ServiceService {
 
   loadProfile() {
     console.log("loadprofile() is called");
+    console.log();
     
     return this.http.get('/user/profile', {
       withCredentials: true,
+      headers: { 'Bypass-Interceptor': 'true' } 
     });
   }
 }

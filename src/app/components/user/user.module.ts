@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { UserRoutingModule } from './user-routing.module';
 
 import { HomeComponent } from './home/home.component';
-// import { profileReducer } from './state/user.reducer';
+import { profileReducer } from './state/user.reducer';
 import { LoginComponent } from './login/login.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { OtpverificationComponent } from './otpverification/otpverification.component';
@@ -15,23 +15,25 @@ import { SideBarComponent } from './side-bar/side-bar.component';
 import { OptionBuyingComponent } from './option-buying/option-buying.component';
 import { OptionSellingComponent } from './option-selling/option-selling.component';
 import { SwingTradeComponent } from './swing-trade/swing-trade.component';
-// import { ProfileComponent } from './profile/profile.component';
 import { ProfilesidebarComponent } from './profilesidebar/profilesidebar.component';
-import { StoreModule } from '@ngrx/store';
+// import { StoreModule } from '@ngrx/store';
+// import { appService } from './state/user.service'; 
+// import { UserGuardGuard } from 'src/app/guard/user-guard.guard';
+// import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { ProfileComponent } from './profile/profile.component';
+import { RequestComponent } from './request/request.component';
+import { TradingComponent } from './trading/trading.component';
+
 // import { EffectsModule } from '@ngrx/effects';
-import { appService } from './state/user.service'; 
-import { UserGuardGuard } from 'src/app/guard/user-guard.guard';
-// import { AppComponent } from 'src/app/app.component';
-// import { EffectsModule } from '@ngrx/effects';
-// import { userEffects } from './components/user/state/user.effects';
-// import { userGuardGuard } from 'src/app/guard/user-guard.guard';
+// import { userEffects } from './state/user.effects';
+
 
 
 
 @NgModule({
   declarations: [
     NavBarComponent,
-    // AppComponent,
+
     SignupComponent,
     LoginComponent,
     HomeComponent,
@@ -41,17 +43,22 @@ import { UserGuardGuard } from 'src/app/guard/user-guard.guard';
     OptionBuyingComponent,
     OptionSellingComponent,
     SwingTradeComponent,
-
-    ProfilesidebarComponent
+    // SweetAlert2Module,
+    ProfilesidebarComponent,
+    ProfileComponent,
+    RequestComponent,
+    TradingComponent
   ],
   imports: [
     CommonModule,
     UserRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({
-      // userdetails: profileReducer
-    })
+    // StoreModule.forRoot({
+    //   userdetails: profileReducer
+    // }),
+    // EffectsModule.forRoot([userEffects]),
+    // providers: [appService, UserGuardGuard],
 
   ], 
   exports: [

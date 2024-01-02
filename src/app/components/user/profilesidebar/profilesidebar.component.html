@@ -1,30 +1,92 @@
 
-<div x-cloak :class="sidebarOpen ? 'block' : 'hidden'" class="fixed inset-0 z-20 transition-opacity lg:hidden "></div>
+<!-- <div x-cloak :class="sidebarOpen ? 'block' : 'hidden'" class="sidebar fixed inset-0 z-20 transition-opacity lg:hidden"></div> -->
 
-<div x-cloak :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed h-full left-0 z-20 w-21 overflow-y-auto transition duration-300 transform bg-gray-900 lg:translate-x-0 lg:static lg:inset-0">
- 
+<div x-cloak :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="top-[63px] sidebar fixed h-full left-0 z-20 w-21 overflow-y-auto transition duration-300 transform bg-gray-900 lg:translate-x-0 lg:static lg:inset-0">
+  
+    <div class="top-bar">
+        <span class="block cursor-pointer " onclick="toggleSidebar()">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="h-5 w-5 text-white">
+                <path
+                    fill-rule="evenodd"
+                    d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+                    clip-rule="evenodd" />
+            </svg>
+        </span>
+        <!-- Add other navigation items as needed -->
+    </div>
     <nav class="mt-5">
-        <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25 " href="/">
+        <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25 " href="/user/profile">
           
 
-            <span class="mx-3 text-sm">Dashboard</span>
+            <span class="mx-3 text-sm">Profile</span>
         </a>
 
-        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="/ui-elements">
+        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="/user/request">
            
 
-            <span class="mx-3 text-sm">UI Elements</span>
+            <span class="mx-3 text-sm">requests</span>
         </a>
+        <a *ngIf="role === 'callprovider'" class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="/user/trading">
+            <span class="mx-3 text-sm">trading details</span>
+        </a>
+        
 
-        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="/tables">
+        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="/user/schedule">
           
 
-            <span class="mx-3 text-sm">Tables</span>
+            <span class="mx-3 text-sm">Schedule</span>
         </a>
 
-        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="/forms">
+        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="/user/message">
         
-            <span class="mx-3 text-sm">Forms</span>
+            <span class="mx-3 text-sm">Message</span>
         </a>
     </nav>
 </div>
+<script>
+    function toggleSidebar() {
+        var sidebar = document.querySelector('.sidebar');
+        sidebar.style.display = (sidebar.style.display === 'none' || sidebar.style.display === '') ? 'block' : 'none';
+    }
+</script>
+<style>
+    .sidebar {
+        display: block;
+    }
+
+    .top-bar {
+        display: none;
+    }
+
+    .svg-icon {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        .sidebar {
+            display: none;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px;
+            color: white;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000; /* Adjust z-index as needed */
+        }
+
+        .svg-icon {
+            display: block;
+            cursor: pointer;
+        }
+    }
+</style>

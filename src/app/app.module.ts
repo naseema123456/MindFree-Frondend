@@ -6,7 +6,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
-
+import { StoreModule } from '@ngrx/store';
+import { profileReducer } from './components/user/state/user.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { userEffects } from './components/user/state/user.effects';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UrlInterceptorInterceptor } from './interceptore/url-interceptor.interceptor';
@@ -15,7 +18,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 import { PageNotFoundComponent } from './components/pageNotFound/page-not-found.component';
-import { StoreModule } from '@ngrx/store';
+import { JwtInterceptor } from './interceptore/jwt-interceptor.interceptor';
+
 
 
 
@@ -36,11 +40,15 @@ import { StoreModule } from '@ngrx/store';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({
+      userdetails: profileReducer
+    }),
+    EffectsModule.forRoot([userEffects]),
   ],
   providers: [
-    {provide:HTTP_INTERCEPTORS,useClass:UrlInterceptorInterceptor,multi:true}
+    {provide:HTTP_INTERCEPTORS,useClass:UrlInterceptorInterceptor,multi:true},
+    {provide:HTTP_INTERCEPTORS,useClass:JwtInterceptor,multi:true}
   ],
-  // bootstrap: [AppComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,65 @@
+<div class="grid grid-cols-12">
+    <app-nav-bar style="opacity: 1;"></app-nav-bar>
+
+
+    <div class=" ">
+        <div class="">
+            <app-profilesidebar />
+        </div>
+
+    </div>
+
+
+
+    <div class="col-span-10 p-4 mt-16">
+        <div class="bg-white border border-gray-200 shadow p-6 rounded-md">
+            <h2 class="text-2xl font-semibold mb-4">Stock Form</h2>
+
+            <form [formGroup]="stockForm" (ngSubmit)="submitForm()">
+                <!-- Stock Name -->
+                <div class="mb-2">
+                    <label for="tradeType" class="block text-sm font-medium text-gray-700">Trade Type</label>
+                    <select formControlName="tradeType" class="mt-1 p-1 w-full border rounded-md text-sm">
+                      <option value="holding">Holding</option>
+                      <option value="swingtrade">Swing Trade</option>
+                      <option value="optionbuying">Option Buying</option>
+                      <option value="optionselling">Option Selling</option>
+                    </select>
+                  </div>
+                <div class="mb-2">
+                    <label for="stockName" class="block text-sm font-medium text-gray-700">Stock Name</label>
+                    <input type="text" formControlName="stockName" class="mt-1 p-1 w-full border rounded-md text-sm" />
+                </div>
+                <div class="mb-2">
+                    <label for="atThePrice" class="block text-sm font-medium text-gray-700">At the Price</label>
+                    <input type="number" formControlName="atThePrice" class="mt-1 p-1 w-full border rounded-md text-sm" />
+                  </div>
+                  
+                  <div class="mb-2">
+                    <label for="quantity" class="block text-sm font-medium text-gray-700">Quantity (optional)</label>
+                    <input type="number" formControlName="quantity" class="mt-1 p-1 w-full border rounded-md text-sm" />
+                  </div>
+                  
+                  <div class="mb-2">
+                    <label for="stoploss" class="block text-sm font-medium text-gray-700">Stoploss</label>
+                    <input type="number" formControlName="stoploss" class="mt-1 p-1 w-full border rounded-md text-sm" />
+                  </div>
+                  
+                  <div class="mb-2">
+                    <label for="target" class="block text-sm font-medium text-gray-700">Target</label>
+                    <input type="number" formControlName="target" class="mt-1 p-1 w-full border rounded-md text-sm" />
+                  </div>
+                  
+                  <div class="mb-2">
+                    <label for="more" class="block text-sm font-medium text-gray-700">More</label>
+                    <input type="text" formControlName="more" class="mt-1 p-1 w-full border rounded-md text-sm" />
+                  </div>
+                  
+               
+
+                <!-- Submit button -->
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
