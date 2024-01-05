@@ -11,6 +11,14 @@ export interface TradingRecord {
     stopLoss: number;
     percentage: number;
     usedCapital: number;
-    userId: string;
+    userId: {
+      _id: string;
+      firstName: string;
+      lastName: string;
+    };
   }
-  
+  export interface alltrade {
+    data?: TradingRecord[],
+    success: boolean;
+    message: string;
+}

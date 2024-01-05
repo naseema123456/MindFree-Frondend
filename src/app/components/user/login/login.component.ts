@@ -84,7 +84,9 @@ export class LoginComponent implements OnInit {
          
        
          }else {
-        // Show SweetAlert alert in case of an error
+        // Show SweetAlert alert in case of an errorshow
+        this.showModal=false
+        this.showEmail=false
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -94,6 +96,8 @@ export class LoginComponent implements OnInit {
     },
     (error) => {
       console.error('Error:', error);
+      this.showModal=false
+      this.showEmail=false
       // Show SweetAlert alert for general error handling
       Swal.fire({
         icon: 'error',
@@ -116,6 +120,8 @@ export class LoginComponent implements OnInit {
             this.showOtpInput = false;
             this.showPasswordInput=true
           } else {
+            this.showModal=false
+            this.showOtpInput = false;
             Swal.fire({
               title: 'Error!',
               text: 'Invalid OTP. Please try again.',
@@ -128,6 +134,8 @@ export class LoginComponent implements OnInit {
       },
       (err: any) => {
         console.log(err);
+        this.showModal=false
+        this.showOtpInput = false;
         Swal.fire('Error', err.error.message, 'error');
       }
     );

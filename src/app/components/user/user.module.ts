@@ -9,7 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { OtpverificationComponent } from './otpverification/otpverification.component';
 import { SignupComponent } from './signup/signup.component';
-import { UserProfileComponentComponent } from './user-profile/user-profile-component.component';
+// import { UserProfileCompo } from '';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { OptionBuyingComponent } from './option-buying/option-buying.component';
@@ -23,6 +23,8 @@ import { ProfilesidebarComponent } from './profilesidebar/profilesidebar.compone
 import { ProfileComponent } from './profile/profile.component';
 import { RequestComponent } from './request/request.component';
 import { TradingComponent } from './trading/trading.component';
+import { AppoinmentComponent } from './appoinment/appoinment.component';
+import { SetTimeComponent } from './set-time/set-time.component';
 
 // import { EffectsModule } from '@ngrx/effects';
 // import { userEffects } from './state/user.effects';
@@ -38,7 +40,7 @@ import { TradingComponent } from './trading/trading.component';
     LoginComponent,
     HomeComponent,
     OtpverificationComponent,
-    UserProfileComponentComponent,
+    // UserProfileComponentComponent,
     SideBarComponent,
     OptionBuyingComponent,
     OptionSellingComponent,
@@ -47,7 +49,9 @@ import { TradingComponent } from './trading/trading.component';
     ProfilesidebarComponent,
     ProfileComponent,
     RequestComponent,
-    TradingComponent
+    TradingComponent,
+    AppoinmentComponent,
+    SetTimeComponent
   ],
   imports: [
     CommonModule,
@@ -67,7 +71,7 @@ import { TradingComponent } from './trading/trading.component';
     LoginComponent,
     HomeComponent,
     OtpverificationComponent,
-    UserProfileComponentComponent,
+    // UserProfileComponentComponent,
     SideBarComponent,
     OptionBuyingComponent,
     OptionSellingComponent,

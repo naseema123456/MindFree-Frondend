@@ -19,13 +19,23 @@
                 <!-- Stock Name -->
                 <div class="mb-2">
                     <label for="tradeType" class="block text-sm font-medium text-gray-700">Trade Type</label>
-                    <select formControlName="tradeType" class="mt-1 p-1 w-full border rounded-md text-sm">
+                    <select formControlName="tradeType" class="mt-1 p-1 w-full border rounded-md text-sm" (change)="onTradeTypeChange()">
+
                       <option value="holding">Holding</option>
                       <option value="swingtrade">Swing Trade</option>
                       <option value="optionbuying">Option Buying</option>
                       <option value="optionselling">Option Selling</option>
                     </select>
                   </div>
+                  <div *ngIf="isOptionSelling()" class="mb-2">
+                    <label for="usedCapital" class="block text-sm font-medium text-gray-700">Used Capital</label>
+                    <input type="number" formControlName="usedCapital" class="mt-1 p-1 w-full border rounded-md text-sm" />
+                </div>
+                <div *ngIf="previousStockName && previousAtThePrice">
+                  <p>Previous Stock Name: {{ previousStockName }}</p>
+                  <p>Previous At The Price: {{ previousAtThePrice }}</p>
+              </div>
+
                 <div class="mb-2">
                     <label for="stockName" class="block text-sm font-medium text-gray-700">Stock Name</label>
                     <input type="text" formControlName="stockName" class="mt-1 p-1 w-full border rounded-md text-sm" />
@@ -41,13 +51,22 @@
                   </div>
                   
                   <div class="mb-2">
-                    <label for="stoploss" class="block text-sm font-medium text-gray-700">Stoploss</label>
-                    <input type="number" formControlName="stoploss" class="mt-1 p-1 w-full border rounded-md text-sm" />
+                    <label for="stopLoss" class="block text-sm font-medium text-gray-700">Stoploss</label>
+                    <input type="number" formControlName="stopLoss" class="mt-1 p-1 w-full border rounded-md text-sm" />
                   </div>
                   
                   <div class="mb-2">
                     <label for="target" class="block text-sm font-medium text-gray-700">Target</label>
                     <input type="number" formControlName="target" class="mt-1 p-1 w-full border rounded-md text-sm" />
+                  </div>
+                  <div *ngIf="isOptionSelling()" class="mb-2">
+                    <label class="block text-sm font-medium text-gray-700">Add Items</label>
+                    <button type="button" (click)="addMiddleItems()" [disabled]="!showMiddleItemsButton">
+                      <i class="fas fa-plus-circle"></i> <!-- FontAwesome plus-circle icon -->
+                    </button>
+                    <div>isOptionSelling: {{ isOptionSelling() }}</div>
+                    <div>showMiddleItemsButton: {{ showMiddleItemsButton }}</div>
+                    <div>atThePricesValid: {{ areAtThePricesValid() }}</div>
                   </div>
                   
                   <div class="mb-2">
@@ -55,8 +74,7 @@
                     <input type="text" formControlName="more" class="mt-1 p-1 w-full border rounded-md text-sm" />
                   </div>
                   
-               
-
+        
                 <!-- Submit button -->
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Submit</button>
             </form>

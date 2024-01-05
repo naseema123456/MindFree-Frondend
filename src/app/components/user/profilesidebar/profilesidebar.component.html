@@ -19,6 +19,11 @@
         <!-- Add other navigation items as needed -->
     </div>
     <nav class="mt-5">
+        <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25 " href="/user/home">
+          
+
+            <span class="mx-3 text-sm">Home</span>
+        </a>
         <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25 " href="/user/profile">
           
 
@@ -34,7 +39,9 @@
             <span class="mx-3 text-sm">trading details</span>
         </a>
         
-
+        <a *ngIf="role === 'user'" class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="/user/appoinment">
+            <span class="mx-3 text-sm">Appoinment</span>
+        </a>
         <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="/user/schedule">
           
 

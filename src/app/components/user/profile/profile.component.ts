@@ -22,6 +22,9 @@ export class ProfileComponent  implements OnInit, AfterViewInit {
   public showModal: boolean = false;
   public showAddress: boolean = false;
   public showdetail: boolean = false;
+  public Time: boolean = false;
+  availableTimeSlots: { label: string; selected: boolean }[] = [];
+  
   public id: string = '';
   public firstName: string = '';
   public lastName: string = '';
@@ -157,5 +160,51 @@ console.log("submit",this.selectedFile);
   AddAddress(){
     this.showAddress=true
     this.showdetail=false
+  }
+
+  scheduleTime(){
+    this.Time=true
+    this.availableTimeSlots = [
+      { label: '9:00 AM - 10:00 AM', selected: false },
+      { label: '10:00 AM - 11:00 AM', selected: false },
+      { label: '11:00 AM - 12:00 PM', selected: false },
+      { label: '12:00 PM - 1:00 PM', selected: false },
+      { label: '1:00 PM - 2:00 PM', selected: false },
+      { label: '2:00 PM - 3:00 PM', selected: false },
+      { label: '3:00 PM - 4:00 PM', selected: false },
+      { label: '4:00 PM - 5:00 PM', selected: false },
+      { label: '5:00 PM - 6:00 PM', selected: false },
+      { label: '6:00 PM - 7:00 PM', selected: false },
+      { label: '7:00 PM - 8:00 PM', selected: false },
+      { label: '8:00 PM - 9:00 PM', selected: false },
+      { label: '9:00 PM - 10:00 PM', selected: false },
+      { label: '10:00 PM - 11:00 PM', selected: false },
+      { label: '11:00 PM - 12:00 AM', selected: false },
+      { label: '12:00 AM - 1:00 AM', selected: false },
+      { label: '1:00 AM - 2:00 AM', selected: false },
+      { label: '2:00 AM - 3:00 AM', selected: false },
+      { label: '3:00 AM - 4:00 AM', selected: false },
+      { label: '4:00 AM - 5:00 AM', selected: false },
+      { label: '5:00 AM - 6:00 AM', selected: false },
+      { label: '6:00 AM - 7:00 AM', selected: false },
+      { label: '8:00 AM - 9:00 AM', selected: false },
+      // Add more time slots as needed
+    ];
+  }
+
+  closeTime(){
+    this.Time=false
+  }
+  selectTimeSlot(selectedSlot: { label: string; selected: boolean }): void {
+    // Perform actions when a time slot is selected
+    console.log('Selected Time Slot:', selectedSlot.label);
+
+    // Update the selected status to prevent further clicks
+    selectedSlot.selected = true;
+    this.http.post('/callprovider/save-time-slot', { time: selectedSlot.label })
+    .subscribe(
+      () => console.log('Time slot saved successfully'),
+      (error) => console.error('Error saving time slot:', error)
+    );
   }
 }

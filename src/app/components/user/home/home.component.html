@@ -5,25 +5,16 @@
         <div class="flex-shrink-0">
             <!-- Sidebar content -->
           <app-side-bar></app-side-bar>
-            <!-- <div class="py-4 text-gray-500">
-             
-                <a href="#" class="px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-300">Holding</a>
-                <a href="#" class="px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-300">Swing Trade</a>
-                <a href="#" class="px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-300">Option buying</a>
-                <a href="#" class="px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-300">Option selling</a>
-            </div>
-        </div> -->
-    </div>
-
-    <!-- Page Content -->
-<!-- home.component.html -->
+          <app-side-bar></app-side-bar>
+          
 
 <div class="container mx-auto mt-10">
     <table class="min-w-full bg-white border border-gray-300">
       <thead>
         <tr>
-            <th class="border-b p-2 text-sm">#</th>
-            <th class="border-b p-2 text-sm">Date</th>
+            <!-- <th class="border-b p-2 text-sm">#</th> -->
+            <th class="border-b p-2 text-sm">callprovider</th>
+            <th class="border-b p-7 text-sm">Date</th>
             <th class="border-b p-2 text-sm">Stock Name</th>
             <th class="border-b p-2 text-sm">At Price</th>
             <th class="border-b p-2 text-sm">Quantity</th>
@@ -36,30 +27,29 @@
       </thead>
       <tbody>
         <!-- Add your data rows here -->
-        <tr>
-            <td class="border-b p-2 text-sm">1</td>
-            <td class="border-b p-2 text-sm">2023-12-19</td>
-            <td class="border-b p-2 text-sm">Stock A</td>
-            <td class="border-b p-2 text-sm">100</td>
-            <td class="border-b p-2 text-sm">10</td>
-            <td class="border-b p-2 text-sm">5</td>
-            <td class="border-b p-2 text-sm">120</td>
-            <td class="border-b p-2 text-sm">110</td>
-            <td class="border-b p-2 text-sm text-red-500">-100</td>
-            <td class="border-b p-2 text-sm text-red-500">-10%</td>
+        
+        <tr *ngFor="let trades of responseData">
+          <ng-container *ngIf="trades.tradeType == 'holding'">
+            <td class="border-b p-1 text-sm">{{ trades.userId.firstName }} {{ trades.userId.lastName }}</td>
+            <td class="border-b p-1 text-sm">{{ trades.date | date:'yyyy-MM-dd' }}</td>
+
+            <td class="border-b p-1 text-sm">{{trades.stockName}}</td>
+            <td class="border-b p-1 text-sm">{{trades.atThePrice}}</td>
+            <td class="border-b p-1 text-sm">{{trades.quantity}}</td>
+            <td class="border-b p-1 text-sm">{{trades.stockName}}</td>
+            <td class="border-b p-1 text-sm">{{trades.target}}</td>
+            <td class="border-b p-1 text-sm">100</td>
+            <td class="border-b p-1 text-sm text-red-500">-100</td>
+            <td class="border-b p-1 text-sm text-red-500">-10%</td>
+          </ng-container>
           </tr>
         <!-- Add more rows as needed -->
       </tbody>
     </table>
+ 
   </div>
   
 </div>
 
-<!-- Toggle Sidebar Button -->
-<button [@click]="toggleSidebar" class="fixed z-10 bottom-4 right-4 p-2 bg-blue-500 text-white rounded-full shadow-lg">
 
-    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-    </svg>
-</button>
 <router-outlet></router-outlet>

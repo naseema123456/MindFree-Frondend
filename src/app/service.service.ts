@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { appUsers } from 'src/app/model/usermodel';
+import { TradingRecord } from './model/trading';
+import { alltrade } from './model/trading';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,6 +23,13 @@ export class ServiceService {
     return this.http.get('/user/profile', {
       withCredentials: true,
       headers: { 'Bypass-Interceptor': 'true' } 
+    });
+  }
+
+
+  loadTrade(): Observable<alltrade> {
+    return this.http.get<alltrade>('/callprovider/loadTrade', {
+      withCredentials: true,
     });
   }
 }

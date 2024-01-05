@@ -14,6 +14,8 @@ import { AuthGuardGuard } from 'src/app/guard/auth-guard.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { RequestComponent } from './request/request.component';
 import { TradingComponent } from './trading/trading.component';
+import { AppoinmentComponent } from './appoinment/appoinment.component';
+import { SetTimeComponent } from './set-time/set-time.component';
 
 
 
@@ -48,8 +50,13 @@ const routes: Routes = [
   {
     path:'trading',component:TradingComponent,canActivate:[UserGuardGuard]
   },
+  {
+    path:'appoinment',component:AppoinmentComponent,canActivate:[UserGuardGuard]
+  },
+  {
+    path:'setTime',component:SetTimeComponent,canActivate:[UserGuardGuard]
+  },
   
-
   {
     path: '',
     redirectTo: 'login',
