@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -12,22 +12,60 @@ import { IApiAppointment,Appointment } from 'src/app/model/appoinment';
   templateUrl: './appoinment.component.html',
   styleUrls: ['./appoinment.component.css']
 })
-export class AppoinmentComponent {
+export class AppoinmentComponent implements OnInit {
   response!: IApiAppointment;
   public showModal: boolean = false;
+  callProviders: {
+    firstName: string;
+    lastName: string;
+    callproviderId:string;
+    amountOfCourse: number;
+    rating: number;
+    review: string;
+    userId: string;
+  }[] = [];
   constructor(
     private razorpayService: RazorpayService,
     private http: HttpClient,
     private router: Router,
   ){}
-  callProviders = [
-    { firstName: 'John', lastName: 'Doe', amountOfCourse: 1000, rating: 4.5, review: 'Great experience!' },
-    { firstName: 'John', lastName: 'Doe', amountOfCourse: 1000, rating: 4.5, review: 'Great experience!' },
-    { firstName: 'callprovider', lastName: 'user1', amountOfCourse: 1000, rating: 4.5, review: 'Great experience!' ,userId:"6597b3e575f0345c03a22d9c"},
-    // Add more call providers as needed
-  ];
 
+  ngOnInit(): void {
+ 
+  // this.http.get<any>('/callprovider/getcallprovider', { withCredentials: true }).subscribe(
+  //   (data) => {
+  //     console.log(data, "............");
+      
 
+  //   }
+  // );
+      
+  this.http.get<IApiAppointment>('/callprovider/getcallprovider', { withCredentials: true }).subscribe(
+    (response: IApiAppointment) => {
+      if (response.success) {
+        // Update callProviders array using the response data
+        this.callProviders = response.data.map((provider: any) => ({
+          firstName: provider.callprovider.firstName,
+          callproviderId:provider.callprovider._id,
+          lastName: provider.callprovider.lastName,
+          amountOfCourse: provider.amount,
+          rating: 4.5, // Add any default values or adjust as needed
+          review: 'Great experience!', // Add any default values or adjust as needed
+          userId: provider.userId
+        }));
+  
+        console.log(this.callProviders, 'callProviders');
+      } else {
+        console.error('Error loading users:', response.message);
+      }
+    },
+    (error) => {
+      console.error(error); // Log any errors
+    }
+  );
+  
+
+  }
   time(userId:string|undefined){
     console.log(userId,"userId");
     
@@ -36,7 +74,7 @@ export class AppoinmentComponent {
         this.showModal=true
         if (response.success) {
           this.response = response;
-          console.log(this.response);
+          console.log(this.response,"respons");
         } else {
           console.error('Error loading users:', response.message);
         }
@@ -58,20 +96,10 @@ export class AppoinmentComponent {
   this.showModal=false
   console.log(callprovider,time);
   
-  //   const paymentAmount = provider.amountOfCourse * 100; 
-  //  const response= this.razorpayService.createPayment(paymentAmount, provider.firstName, provider.lastName, provider.userId);
+    const paymentAmount = 1000* 100; 
+   const response= this.razorpayService.createPayment(paymentAmount, callprovider,time);
 
-    // this.http.post<Feedback>('/user/appoinment', response, { withCredentials: true }).subscribe(
-    //   (response:Feedback) => {
-     
-    //     console.log(response,"............");
-   
-    //     // this.router.navigate(['/user/home']);
-    //   },
-    //   (err) => {
-    //     Swal.fire("Error", err.error.message, "error");
-    //   }
-    // );
+ 
    
   }
 }

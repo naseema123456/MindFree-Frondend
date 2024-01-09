@@ -17,7 +17,7 @@
             </thead>
             <tbody class="bg-white">
               <!-- <tr *ngFor="let provider of callProviders" (click)="openRazorpayModal(provider)" class=" hover:bg-sky-500"> -->
-                <tr *ngFor="let provider of callProviders" (click)="time(provider.userId)" class=" hover:bg-sky-500">
+                <tr *ngFor="let provider of callProviders" (click)="time(provider.callproviderId)" class=" hover:bg-sky-500">
 
                 <td class="px-4 py-2">{{ provider.firstName }}</td>
                 <td class="px-4 py-2">{{ provider.lastName }}</td>
@@ -34,23 +34,7 @@
   </div>
   
 
-<!-- Your Component HTML -->
-<!-- <div *ngIf="showModal" class="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
-  <div class="bg-white p-6 rounded shadow-md">
-    <h2 class="text-2xl font-bold mb-4">Available Time</h2>
 
-    
-    <div class="flex flex-wrap -mx-2">
-      <div *ngFor="let time of availableTimes" class="w-1/4 px-2 mb-4">
-        <div class="cursor-pointer bg-blue-500 text-white rounded p-2 text-center" (click)="handleTimeSelection(time)">
-          {{ time }}
-        </div>
-      </div>
-    </div>
-
-    <button class="bg-red-500 text-white px-4 py-2 rounded mt-4" (click)="closeModal()">Close</button>
-  </div>
-</div> -->
 <!-- Your Component HTML -->
 <div *ngIf="showModal" class="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
   <div class="bg-white p-6 rounded shadow-md">
@@ -60,14 +44,14 @@
     <div class="flex flex-wrap -mx-2">
       <!-- Display Time Slots from Response -->
       <div *ngFor="let timeSlot of response.data" class="px-2 mb-4">
-        <div 
-        class="bg-blue-500 text-white rounded p-2 text-center cursor-pointer"
-        (click)="openRazorpayModal(timeSlot.callprovider,timeSlot.time)"
-      >
-        {{ timeSlot.time }}
-      </div>
-      
-        
+        <button 
+          class="bg-blue-500 text-white rounded p-2 text-center cursor-pointer"
+          (click)="openRazorpayModal(timeSlot.callprovider, timeSlot.time)"
+          [ngClass]="{'bg-red-500': timeSlot.userId, 'text-gray-300': timeSlot.userId}"
+          [disabled]="timeSlot.userId"
+        >
+          {{ timeSlot.time }}
+        </button>
       </div>
     </div>
 
@@ -75,5 +59,6 @@
     <button class="bg-red-500 text-white px-4 py-2 rounded mt-4" (click)="closeModal()">Close</button>
   </div>
 </div>
+
 
 

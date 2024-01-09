@@ -34,7 +34,7 @@
           <td class="border-b p-2 text-sm">{{ user.email }}</td>
           <td class="border-b p-2 text-sm">{{ user.phoneNumber }}</td>
           <td class="border-b p-2 text-sm">{{ user.role }}</td>
-          <td class="border-b p-2 text-sm"(click)="Blocked(user.isBlocked,user._id)">{{ user.isBlocked  }}</td>
+          <td class="border-b p-2 text-sm"class="text-blue-500 hover:text-blue-700" (click)="Blocked(user.isBlocked,user._id)">{{ user.isBlocked  }}</td>
        
           <td class="border-b p-2 text-sm">
             <button class="text-blue-500 hover:text-blue-700" (click)="editUser(user, user._id)">Edit</button>

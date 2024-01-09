@@ -124,15 +124,22 @@
       <!-- Display the available time slots (for example, using ngFor) -->
       <div class="grid grid-cols-4 gap-2">
         <div *ngFor="let timeSlot of availableTimeSlots">
-          <button
-            [disabled]="timeSlot.selected"
-            [ngClass]="{'bg-green-500': !timeSlot.selected, 'bg-red-500': timeSlot.selected, 'text-white': !timeSlot.selected, 'text-gray-300': timeSlot.selected, 'cursor-not-allowed': timeSlot.selected }"
-            class="px-2 py-1 rounded-md w-full"
-            (click)="selectTimeSlot(timeSlot)"
-          >
-            {{ timeSlot.label }}
-          </button>
-        </div>
+            <button
+              [disabled]="timeSlot.selected || timeSlot.disabled"
+              [ngClass]="{
+                'bg-green-500': timeSlot.selected && !timeSlot.confirmed,
+                'bg-red-500': timeSlot.selected && timeSlot.confirmed,
+                'text-blue-700': !timeSlot.selected,
+                'text-gray-300': timeSlot.selected,
+                'cursor-not-allowed': timeSlot.selected
+              }"
+              class="px-2 py-1 rounded-md w-full"
+              (click)="selectTimeSlot(timeSlot)"
+            >
+              {{ timeSlot.label }} 
+            </button>
+          </div>
+          
       </div>
   
       <!-- Close Button -->

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { appUsers } from 'src/app/model/usermodel';
 import { TradingRecord } from './model/trading';
 import { alltrade } from './model/trading';
+import { IApiAppointment } from 'src/app/model/appoinment';
 @Injectable({
   providedIn: 'root'
 })
@@ -32,4 +33,13 @@ export class ServiceService {
       withCredentials: true,
     });
   }
+
+
+  loadAppoinment(): Observable<IApiAppointment> {
+    return this.http.get<IApiAppointment>('/callprovider/getappoinment', {
+      withCredentials: true,
+    });
+    
+  }
+
 }

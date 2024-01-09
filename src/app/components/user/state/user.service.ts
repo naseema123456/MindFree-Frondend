@@ -47,11 +47,6 @@ export class UserService {
    
         const user = this.mapResponseToUser(response);
 
-        // Do something with the user data
-        // console.log(user);
-
-        // If you want to return the user data, you can emit it using a Subject or BehaviorSubject
-        // For simplicity, I'm returning the entire response here
       },
       (error) => {
         console.error('Error loading profile data:', error);

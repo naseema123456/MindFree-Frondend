@@ -16,6 +16,7 @@ import { RequestComponent } from './request/request.component';
 import { TradingComponent } from './trading/trading.component';
 import { AppoinmentComponent } from './appoinment/appoinment.component';
 import { SetTimeComponent } from './set-time/set-time.component';
+import { ScheduleComponent } from './schedule/schedule.component';
 
 
 
@@ -55,6 +56,9 @@ const routes: Routes = [
   },
   {
     path:'setTime',component:SetTimeComponent,canActivate:[UserGuardGuard]
+  },
+  {
+    path:'schedule',component:ScheduleComponent,canActivate:[UserGuardGuard]
   },
   
   {
