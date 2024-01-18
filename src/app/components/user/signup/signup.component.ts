@@ -1,4 +1,6 @@
 import { HttpClient } from '@angular/common/http';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -25,7 +27,14 @@ export class SignupComponent implements OnInit {
       lastName: ['', Validators.required],
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8), // Minimum length example
+          this.customPasswordStrengthValidator()
+        ]
+      ],
       rePassword: ['', Validators.required]
     });
   }
@@ -39,6 +48,41 @@ export class SignupComponent implements OnInit {
       return false;
     }
   };
+  customPasswordStrengthValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const password = control.value;
+  
+      // Add your password strength rules here
+      const hasUpperCase = /[A-Z]/.test(password);
+      const hasLowerCase = /[a-z]/.test(password);
+      const hasNumbers = /\d/.test(password);
+      const hasSpecialChars = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(password);
+  
+      const errors: ValidationErrors = {};
+  
+      if (!hasLowerCase) {
+        errors['lowercaseMissing'] = true;
+      }
+  
+      if (!hasUpperCase) {
+        errors['uppercaseMissing'] = true;
+      }
+  
+      if (!hasNumbers) {
+        errors['numberMissing'] = true;
+      }
+      if (password.length < 8) {
+        errors['minLengthNotMet'] = true;
+      }
+      if (!hasSpecialChars) {
+        errors['specialCharMissing'] = true;
+      }
+  
+      return Object.keys(errors).length === 0 ? null : errors;
+    };
+  }
+  
+  
   ngOnInit(): void {
    
   }

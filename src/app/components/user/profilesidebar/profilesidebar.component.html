@@ -3,7 +3,7 @@
 
 <div x-cloak :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="top-[63px] sidebar fixed h-full left-0 z-20 w-21 overflow-y-auto transition duration-300 transform bg-gray-900 lg:translate-x-0 lg:static lg:inset-0">
   
-    <div class="top-bar">
+    <div class="top-bar z-50 ">
         <span class="block cursor-pointer " onclick="toggleSidebar()">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -30,10 +30,10 @@
             <span class="mx-3 text-sm">Profile</span>
         </a>
 
-        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="/user/request">
+        <a *ngIf="appointmentsData && appointmentsData.length > 0" class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="/user/schedule">
            
-
-            <span class="mx-3 text-sm">requests</span>
+            
+            <span class="mx-3 text-sm">Schedule</span>
         </a>
         <a *ngIf="role === 'callprovider'" class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="/user/trading">
             <span class="mx-3 text-sm">trading details</span>
@@ -42,16 +42,16 @@
         <a *ngIf="role === 'user'" class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="/user/appoinment">
             <span class="mx-3 text-sm">Appoinment</span>
         </a>
-        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="/user/schedule">
+        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="/user/request">
           
 
-            <span class="mx-3 text-sm">Schedule</span>
+            <span class="mx-3 text-sm">requests</span>
         </a>
-
+<!-- 
         <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="/user/message">
         
             <span class="mx-3 text-sm">Message</span>
-        </a>
+        </a> -->
     </nav>
 </div>
 <script>

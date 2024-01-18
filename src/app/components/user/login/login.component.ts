@@ -195,8 +195,13 @@ export class LoginComponent implements OnInit {
         (response:IApiUserRes) => {
        
           console.log(response,"............");
-          let Id=response.id
+          let userId = response.user?._id?.toString() ?? '';
+          console.log(response.user,"usrer");
+         console.log(userId,"id");
+         
+
            localStorage.setItem('userToken', response.token)
+           localStorage.setItem('id', userId);
           this.router.navigate(['/user/home']);
         },
         (err) => {

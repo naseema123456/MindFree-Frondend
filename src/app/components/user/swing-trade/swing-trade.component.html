@@ -12,7 +12,9 @@
 
     <!-- Page Content -->
 <!-- home.component.html -->
-
+<div class="input-group flex align-items-center justify-end mr-28">
+  <input [ngStyle]="{ 'height' : '38px','background-color': '#f8f9fa', 'border': '1px solid #ced4da', 'border-radius': '5px'  }" placeholder="Search" type="text" [(ngModel)]="searchText" class="input" (input)="search()" >
+</div>
 <div class="container mx-auto mt-10">
     <table class="min-w-full bg-white border border-gray-300">
       <thead>
@@ -31,7 +33,7 @@
       </thead>
       <tbody>
         <!-- Add your data rows here -->
-        <tr *ngFor="let trades of responseData">
+        <tr *ngFor="let trades of filteredtrade">
           <ng-container *ngIf="trades.tradeType == 'swingtrade'">
             <td class="border-b p-1 text-sm">{{ trades.userId.firstName }} {{ trades.userId.lastName }}</td>
             <td class="border-b p-1 text-sm">{{ trades.date | date:'yyyy-MM-dd' }}</td>
@@ -39,7 +41,7 @@
             <td class="border-b p-1 text-sm">{{trades.stockName}}</td>
             <td class="border-b p-1 text-sm">{{trades.atThePrice}}</td>
             <td class="border-b p-1 text-sm">{{trades.quantity}}</td>
-            <td class="border-b p-1 text-sm">{{trades.stockName}}</td>
+            <td class="border-b p-1 text-sm">{{trades.stopLoss}}</td>
             <td class="border-b p-1 text-sm">{{trades.target}}</td>
             <td class="border-b p-1 text-sm">100</td>
             <td class="border-b p-1 text-sm text-red-500">-100</td>
@@ -61,3 +63,6 @@
     </svg>
 </button> -->
 <!-- <router-outlet></router-outlet> -->
+
+
+<app-footer></app-footer>

@@ -12,7 +12,9 @@ import Swal from 'sweetalert2';
   templateUrl: './trading.component.html',
   styleUrls: ['./trading.component.css']
 })
-export class TradingComponent  implements OnInit {
+export class TradingComponent {
+  isSubmitted = false;
+
   stockForm!: FormGroup;
   showMiddleItemsButton: boolean = false;
   previousStockName!: string;
@@ -22,20 +24,53 @@ export class TradingComponent  implements OnInit {
     private http: HttpClient,
     private router: Router,
     private fb: FormBuilder,
-    private cdr: ChangeDetectorRef
-    ) {}
+    private cdr: ChangeDetectorRef,
+    private formBuilder: FormBuilder
+    ) {
+      this.stockForm = this.formBuilder.group({
+        tradeType: ['holding', Validators.required],
+        usedCapital: [null],
+        stockName: ['', Validators.required],
+        atThePrice: [null, [Validators.required, Validators.min(1)]],
+        quantity: [null],
+        stopLoss: [null, [Validators.required, Validators.min(1)]],
+        target: [null, [Validators.required, Validators.min(0)]],
+        more: ['']
+      }, {  validators: this.customValidator.bind(this)});
+      
+    }
+    customValidator(group: FormGroup) {
+      const stopLoss = group.get('stopLoss')!.value;
+      const target = group.get('target')!.value;
+      const atThePrice = group.get('atThePrice')!.value;
+    
+      console.log('stopLoss:', stopLoss);
+      console.log('target:', target);
+      console.log('atThePrice:', atThePrice);
+    
+      if (stopLoss != null && target != null && atThePrice != null) {
+        if (stopLoss >= atThePrice) {
+          console.log('Invalid Stop Loss');
+          group.get('stopLoss')!.setErrors({ invalidStopLoss: true });
+        } else {
+          group.get('stopLoss')!.setErrors(null);
+        }
+    
+        if (target <= atThePrice) {
+          console.log('Invalid Target');
+          group.get('target')!.setErrors({ invalidtarget: true });
 
-  ngOnInit() {
-    this.stockForm = this.fb.group({
-      tradeType: ['', Validators.required],
-      stockName: ['', Validators.required],
-      atThePrice: [null, Validators.required],
-      quantity: [null],
-      stopLoss: [null],
-      target: [null],
-      more: [''],
-      usedCapital: [null],
-    });
+        } else {
+          group.get('target')!.setErrors(null);
+        }
+      }
+    
+      return null;
+    }
+    
+ 
+  isFormValid(): boolean {
+    return this.stockForm.valid;
   }
 
   isOptionSelling(): boolean {
@@ -46,6 +81,7 @@ export class TradingComponent  implements OnInit {
   }
   
   submitForm() {
+    this.isSubmitted = true;
     if (this.stockForm.valid) {
       const formData = this.stockForm.value;
       console.log(formData);
@@ -104,3 +140,5 @@ export class TradingComponent  implements OnInit {
     this.cdr.detectChanges();
   }
 }
+
+

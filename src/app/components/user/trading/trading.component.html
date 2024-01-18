@@ -36,29 +36,58 @@
                   <p>Previous At The Price: {{ previousAtThePrice }}</p>
               </div>
 
-                <div class="mb-2">
-                    <label for="stockName" class="block text-sm font-medium text-gray-700">Stock Name</label>
-                    <input type="text" formControlName="stockName" class="mt-1 p-1 w-full border rounded-md text-sm" />
+              <div class="mb-2">
+                <label for="stockName" class="block text-sm font-medium text-gray-700">Stock Name</label>
+                <input type="text" formControlName="stockName" class="mt-1 p-1 w-full border rounded-md text-sm" />
+                <div *ngIf="isSubmitted && stockForm.get('stockName')?.hasError('required')" class="text-red-500">
+                    Stock Name is required.
                 </div>
-                <div class="mb-2">
-                    <label for="atThePrice" class="block text-sm font-medium text-gray-700">At the Price</label>
-                    <input type="number" formControlName="atThePrice" class="mt-1 p-1 w-full border rounded-md text-sm" />
-                  </div>
-                  
+            </div>
+            <div class="mb-2">
+              <label for="atThePrice" class="block text-sm font-medium text-gray-700">At the Price</label>
+              <input type="number" formControlName="atThePrice" class="mt-1 p-1 w-full border rounded-md text-sm" />
+              <div *ngIf="isSubmitted && stockForm.get('atThePrice')?.hasError('required')" class="text-red-500">
+                  At the Price is required.
+              </div>
+              <div *ngIf="isSubmitted && stockForm.get('atThePrice')?.hasError('min')" class="text-red-500">
+                  At the Price must be a positive number.
+              </div>
+          </div>
+          
+            
                   <div class="mb-2">
                     <label for="quantity" class="block text-sm font-medium text-gray-700">Quantity (optional)</label>
                     <input type="number" formControlName="quantity" class="mt-1 p-1 w-full border rounded-md text-sm" />
                   </div>
                   
                   <div class="mb-2">
-                    <label for="stopLoss" class="block text-sm font-medium text-gray-700">Stoploss</label>
+                    <label for="stopLoss" class="block text-sm font-medium text-gray-700">Stop Loss</label>
                     <input type="number" formControlName="stopLoss" class="mt-1 p-1 w-full border rounded-md text-sm" />
-                  </div>
+                    <div *ngIf="isSubmitted && stockForm.get('stopLoss')?.hasError('required')" class="text-red-500">
+                        Stop Loss is required.
+                    </div>
+                    <div *ngIf="isSubmitted && stockForm.get('stopLoss')?.hasError('min')" class="text-red-500">
+                        Stop Loss must be a positive number.
+                    </div>
+                    <div *ngIf="isSubmitted && stockForm.get('stopLoss')?.hasError('invalidStopLoss')" class="text-red-500">
+                        Stop Loss must be less than At the Price.
+                    </div>
+                </div>
                   
                   <div class="mb-2">
                     <label for="target" class="block text-sm font-medium text-gray-700">Target</label>
                     <input type="number" formControlName="target" class="mt-1 p-1 w-full border rounded-md text-sm" />
-                  </div>
+                    <div *ngIf="isSubmitted && stockForm.get('target')?.hasError('required')" class="text-red-500">
+                        Target is required.
+                    </div>
+                    <div *ngIf="isSubmitted && stockForm.get('target')?.hasError('min')" class="text-red-500">
+                        Target must be a positive number.
+                    </div>
+                    <div *ngIf="isSubmitted && stockForm.get('target')?.hasError('invalidtarget')" class="text-red-500">
+                      Target must be greater than At the Price.
+                    </div>
+                    
+                </div>
                   <div *ngIf="isOptionSelling()" class="mb-2">
                     <label class="block text-sm font-medium text-gray-700">Add Items</label>
                     <button type="button" (click)="addMiddleItems()" [disabled]="!showMiddleItemsButton">
@@ -81,3 +110,7 @@
         </div>
     </div>
 </div>
+
+
+
+<app-footer></app-footer>

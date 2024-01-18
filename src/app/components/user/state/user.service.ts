@@ -39,7 +39,7 @@ export class UserService {
   }
   loadProfile(){
 
-    const profileData =  this.http.get<IApiUserRes>('/user/profile',{ withCredentials: true,    headers: { 'Bypass-Interceptor': 'true' }  });
+    const profileData =  this.http.get<IApiUserRes>('/user/profile',{ headers: { 'Bypass-Interceptor': 'true' }  });
 
     profileData.subscribe(
       (response: IApiUserRes) => {

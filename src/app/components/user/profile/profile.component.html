@@ -9,11 +9,12 @@
 
     <div class="  bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-90 col-span-10 mt-16 ">
 
-        
+
         <div class="flex flex-col items-center pb-7">
             <div>
-                <img class="w-24 h-24 mb-3 rounded-full shadow-lg" [src]="'http://localhost:3000/images/'+img" alt="Bonnie image" />
-               
+                <img class="w-24 h-24 mb-3 rounded-full shadow-lg" [src]="'http://localhost:3000/images/'+img"
+                    alt="Bonnie image" />
+
             </div>
             <!-- <div style="background-color: burlywood; width: 200px; height: 200px; margin-right: 20px;">
             <img [src]="'/images/'+img" alt="User Profile" width="200px" height="200px" >
@@ -24,24 +25,23 @@
                 <p class="text-gray-500">{{phoneNumber}}</p>
                 <p class="text-gray-500">Role: {{role}}</p>
                 <p class="text-gray-500">
-                    Address: {{ address.name || 'N/A' }}, {{ address.house || 'N/A' }}, {{ address.post || 'N/A' }}, {{ address.pin || 'N/A' }}, {{ address.contact || 'N/A' }}, {{ address.state || 'N/A' }}, {{ address.District || 'N/A' }}
-                  </p>
-                  
-            </div>   
-            <button
-            *ngIf="role === 'callprovider'"
-            class="absolute right-0 mt-4 mr-4 bg-blue-500 text-white px-4 py-2 rounded-md"
-            (click)="scheduleTime()"
-          >
-            Schedule Time
-          </button>
-             <button (click)="toggleModal2()"
+                    Address: {{ address.name || 'N/A' }}, {{ address.house || 'N/A' }}, {{ address.post || 'N/A' }}, {{
+                    address.pin || 'N/A' }}, {{ address.contact || 'N/A' }}, {{ address.state || 'N/A' }}, {{
+                    address.District || 'N/A' }}
+                </p>
+
+            </div>
+            <button *ngIf="role === 'callprovider'"
+                class="absolute right-0 mt-4 mr-4 bg-blue-500 text-white px-4 py-2 rounded-md" (click)="scheduleTime()">
+                Schedule Time
+            </button>
+            <button (click)="editModal()"
                 class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 z-50">Edit</button>
 
-                <div style="display: flex; width: 100%; justify-content: center; margin-bottom: 30px;">
-                    <input type="file" name="image" (change)="onFileSelected($event)" class="z-50">
-                    <button class="btn btn-warning z-50" (click)="onSubmit()">Upload</button>
-                </div>
+            <div style="display: flex; width: 100%; justify-content: center; margin-bottom: 30px;">
+                <input type="file" name="image" (change)="onFileSelected($event)" class="z-50">
+                <button class="btn btn-warning z-50" (click)="onSubmit()">Upload</button>
+            </div>
         </div>
     </div>
 
@@ -119,31 +119,28 @@
 <!-- Inside your component's template -->
 <div *ngIf="Time" class="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
     <div class="bg-white p-6 rounded shadow-md">
-      <h2 class="text-2xl font-bold mb-4">Set Available Time</h2>
-  
-      <!-- Display the available time slots (for example, using ngFor) -->
-      <div class="grid grid-cols-4 gap-2">
-        <div *ngFor="let timeSlot of availableTimeSlots">
-            <button
-              [disabled]="timeSlot.selected || timeSlot.disabled"
-              [ngClass]="{
+        <h2 class="text-2xl font-bold mb-4">Set Available Time</h2>
+
+        <!-- Display the available time slots (for example, using ngFor) -->
+        <div class="grid grid-cols-4 gap-2">
+            <div *ngFor="let timeSlot of availableTimeSlots">
+                <button [disabled]="timeSlot.selected || timeSlot.disabled" [ngClass]="{
                 'bg-green-500': timeSlot.selected && !timeSlot.confirmed,
                 'bg-red-500': timeSlot.selected && timeSlot.confirmed,
                 'text-blue-700': !timeSlot.selected,
                 'text-gray-300': timeSlot.selected,
                 'cursor-not-allowed': timeSlot.selected
-              }"
-              class="px-2 py-1 rounded-md w-full"
-              (click)="selectTimeSlot(timeSlot)"
-            >
-              {{ timeSlot.label }} 
-            </button>
-          </div>
-          
-      </div>
-  
-      <!-- Close Button -->
-      <button class="bg-red-500 text-white px-4 py-2 rounded mt-4" (click)="closeTime()">Close</button>
+              }" class="px-2 py-1 rounded-md w-full" (click)="selectTimeSlot(timeSlot)">
+                    {{ timeSlot.label }}
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Close Button -->
+        <button class="bg-red-500 text-white px-4 py-2 rounded mt-4" (click)="closeTime()">Close</button>
     </div>
-  </div>
-  
+</div>
+
+
+<app-footer></app-footer>

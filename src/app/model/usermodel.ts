@@ -22,7 +22,8 @@ export interface User {
     success:boolean
     message: string
     id:string
-    data:  User[] | []
+    data?:  User[] | []
+    user?:User
     token: string
   }
 

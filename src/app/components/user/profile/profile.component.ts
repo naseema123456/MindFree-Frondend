@@ -3,13 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit,ChangeDetectorRef } from '@angular/core';
 
 import { IApiUserRes } from 'src/app/model/usermodel';
-import { User } from 'src/app/model/usermodel';
+// import { User } from 'src/app/model/usermodel';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Emitters } from 'src/app/emitters/emitter';
 import { UserModule } from '../user.module';
 import { Store, select } from '@ngrx/store';
-import { ServiceService } from 'src/app/service.service';
+import { ServiceService } from '../../../service/service.service';
 import Swal from 'sweetalert2';
 import { retrieveProfile } from 'src/app/components/user/state/user.action';
 import {userProfileSelector } from 'src/app/components/user/state/user.selectors';
@@ -83,18 +83,18 @@ export class ProfileComponent  implements OnInit, AfterViewInit {
         const data = response.data ? [response] : [];
         console.log(data,"responne load appoinmnet");
         this.updateTimeSlotsWithAppointments(data);
-        console.log(data,"responne load appoinmnet");
+        // console.log(data,"responne load appoinmnet");
       } else {
         console.error('Error loading users:', response.message);
       }
     },
-    (error) => {
+    (error:Error) => {
       console.error('Error loading users', error);
     }
   );
 }
 
-  toggleModal2() {
+editModal() {
     console.log("openModal function called");
     this.showModal = !this.showModal;
     this.showdetail=true
@@ -122,7 +122,7 @@ console.log("submit",this.selectedFile);
 
 
 
-    this.http.post(`/profile/upload`,formData,{ withCredentials: true })
+    this.http.post(`/profile/upload`,formData,)
     .subscribe(
       () => {
         Emitters.authEmitter.emit(true);
@@ -173,7 +173,7 @@ console.log("submit",this.selectedFile);
   this.showModal=false;
   this.showAddress=false
   this.showdetail=false
-    this.http.post<IApiUserRes>('/profile/update', user, { withCredentials: true }).subscribe(
+    this.http.post<IApiUserRes>('/profile/update', user, ).subscribe(
       (response:IApiUserRes) => {
      
         Emitters.authEmitter.emit(true);
@@ -196,36 +196,25 @@ console.log("submit",this.selectedFile);
     this.showdetail=false
   }
 
-  scheduleTime(){
+  scheduleTime() {
     this.loadAppoinment();
-    this.Time=true
-    this.availableTimeSlots = [
-      { label: '9:00 AM - 10:00 AM', selected: false, confirmed: false  },
-      { label: '10:00 AM - 11:00 AM', selected: false, confirmed: false  },
-      { label: '11:00 AM - 12:00 PM', selected: false, confirmed: false  },
-      { label: '12:00 PM - 1:00 PM', selected: false, confirmed: false  },
-      { label: '1:00 PM - 2:00 PM', selected: false, confirmed: false  },
-      { label: '2:00 PM - 3:00 PM', selected: false, confirmed: false  },
-      { label: '3:00 PM - 4:00 PM', selected: false, confirmed: false  },
-      { label: '4:00 PM - 5:00 PM', selected: false, confirmed: false  },
-      { label: '5:00 PM - 6:00 PM', selected: false, confirmed: false  },
-      { label: '6:00 PM - 7:00 PM', selected: false, confirmed: false  },
-      { label: '7:00 PM - 8:00 PM', selected: false, confirmed: false  },
-      { label: '8:00 PM - 9:00 PM', selected: false, confirmed: false  },
-      { label: '9:00 PM - 10:00 PM', selected: false, confirmed: false  },
-      { label: '10:00 PM - 11:00 PM', selected: false, confirmed: false  },
-      { label: '11:00 PM - 12:00 AM', selected: false, confirmed: false  },
-      { label: '12:00 AM - 1:00 AM', selected: false, confirmed: false  },
-      { label: '1:00 AM - 2:00 AM', selected: false, confirmed: false  },
-      { label: '2:00 AM - 3:00 AM', selected: false, confirmed: false  },
-      { label: '3:00 AM - 4:00 AM', selected: false, confirmed: false  },
-      { label: '4:00 AM - 5:00 AM', selected: false, confirmed: false  },
-      { label: '5:00 AM - 6:00 AM', selected: false, confirmed: false  },
-      { label: '6:00 AM - 7:00 AM', selected: false, confirmed: false  },
-      { label: '8:00 AM - 9:00 AM', selected: false, confirmed: false  },
-      // Add more time slots as needed
-    ];
+    this.Time = true;
+  
+    const timeSlots = Array.from({ length: 24 }, (_, index) => {
+      const startHour = index % 12 || 12;
+      const endHour = (startHour + 1) % 12 || 12;
+      const period = index < 12 ? 'AM' : 'PM';
+  
+      return {
+        label: `${startHour}:00 ${period} - ${endHour}:00 ${period}`,
+        selected: false,
+        confirmed: false,
+      };
+    });
+  
+    this.availableTimeSlots = timeSlots;
   }
+  
 
   closeTime(){
     this.Time=false
@@ -271,14 +260,16 @@ console.log("submit",this.selectedFile);
    
    
     this.http.post('/callprovider/save-time-slot', { time: selectedSlot.label })
-    .subscribe(
-      () => {
+    .subscribe({
+      next: () => {
         console.log('Time slot saved successfully');
         this.Time = false; // Set this.Time to false after success
- 
       },
-      (error) => console.error('Error saving time slot:', error)
-    );
+      error: (error) => {
+        console.error('Error saving time slot:', error);
+      }
+    });
+  
   
     
   }

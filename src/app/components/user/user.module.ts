@@ -26,6 +26,7 @@ import { TradingComponent } from './trading/trading.component';
 import { AppoinmentComponent } from './appoinment/appoinment.component';
 import { SetTimeComponent } from './set-time/set-time.component';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { FooterComponent } from './footer/footer.component';
 
 // import { EffectsModule } from '@ngrx/effects';
 // import { userEffects } from './state/user.effects';
@@ -53,7 +54,8 @@ import { ScheduleComponent } from './schedule/schedule.component';
     TradingComponent,
     AppoinmentComponent,
     SetTimeComponent,
-    ScheduleComponent
+    ScheduleComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,

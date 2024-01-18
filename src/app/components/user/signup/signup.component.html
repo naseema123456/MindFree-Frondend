@@ -57,14 +57,30 @@
     
 
             <div>
-                <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
-                <div class="mt-2">
-                    <input id="password"formControlName="password"  name="password" type="password" autocomplete="new-password" required class="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                    <div *ngIf="isSubmitted && f['password'].errors">
-                        <div *ngIf="f['password'].errors['required']" style="color: red;">Password is required</div>
-                    </div>
+              <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+              <div class="mt-2">
+                <input
+                  id="password"
+                  formControlName="password"
+                  name="password"
+                  type="password"
+                  autocomplete="new-password"
+                  required
+                  class="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                <div *ngIf="isSubmitted && f['password'].errors">
+                  <div *ngIf="f['password'].errors['required']" style="color: red;">Password is required</div>
+                  <div *ngIf="f['password'].errors['passwordStrength']" style="color: red;">Weak password. Consider using a stronger one.</div>
+                  <div *ngIf="f['password'].errors['lowercaseMissing']" style="color: red;">Password must contain at least one lowercase letter.</div>
+                  <div *ngIf="f['password'].errors['uppercaseMissing']" style="color: red;">Password must contain at least one uppercase letter.</div>
+                  <div *ngIf="f['password'].errors['numberMissing']" style="color: red;">Password must contain at least one number.</div>
+                  <div *ngIf="f['password'].errors['specialCharMissing']" style="color: red;">Password must contain at least one special character.</div>
+                  <div *ngIf="f['password'].errors['minLengthNotMet']" style="color: red;">Password must be at least 8 characters long.</div>
                 </div>
+                
+              </div>
             </div>
+            
 
             <div>
                 <label for="rePassword" class="block text-sm font-medium leading-6 text-gray-900">Confirm Password</label>

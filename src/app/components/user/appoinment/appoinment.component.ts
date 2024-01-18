@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Feedback } from 'src/app/model/feedback';
-import { RazorpayService } from 'src/app/razorpay.service';
+import { RazorpayService } from '../../../service/razorpay.service';
 import { IApiAppointment,Appointment } from 'src/app/model/appoinment';
 
 
@@ -32,13 +32,6 @@ export class AppoinmentComponent implements OnInit {
 
   ngOnInit(): void {
  
-  // this.http.get<any>('/callprovider/getcallprovider', { withCredentials: true }).subscribe(
-  //   (data) => {
-  //     console.log(data, "............");
-      
-
-  //   }
-  // );
       
   this.http.get<IApiAppointment>('/callprovider/getcallprovider', { withCredentials: true }).subscribe(
     (response: IApiAppointment) => {

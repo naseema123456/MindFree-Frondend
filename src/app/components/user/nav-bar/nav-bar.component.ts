@@ -17,9 +17,10 @@ export class NavBarComponent {
   
   logout(){
   console.log('hiiiiii');
-  
-       // Log the user out
+
+       // Log the user outid
        localStorage.removeItem('userToken');
+       localStorage.removeItem('id');
         this.router.navigate(['/user/login']);
      
   }
