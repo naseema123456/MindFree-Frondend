@@ -44,15 +44,15 @@
           <h1 class="text-center text-blue-400 mt-10 font-bold">This is your chat area</h1>
         </div>
         <div *ngIf="chat" class="w-full px-5 flex flex-col justify-between">
-          <ng-container *ngFor="let chat of chats">
+          <ng-container *ngFor="let chat of chats ">
+         
             <div *ngFor="let message of chat.messages" class="flex mb-4">
-
               <!-- <img *ngIf="chat.sender !== activeChatUserId" src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
                 class="object-cover h-8 w-8 rounded-full mr-2" alt="" /> -->
           
                 <div [ngClass]="{
-                  'ml-auto bg-blue-400 text-white rounded-bl-3xl rounded-tl-3xl rounded-tr-xl': message.sender === activeChatUserId,
-                  'mr-auto bg-gray-400 text-white rounded-br-3xl rounded-tr-3xl rounded-tl-xl': message.sender !== activeChatUserId
+                  'ml-auto bg-blue-400 text-white rounded-bl-3xl rounded-tl-3xl rounded-tr-xl': message.sender !== activeChatReceiverid,
+                  'mr-auto bg-gray-400 text-white rounded-br-3xl rounded-tr-3xl rounded-tl-xl': message.sender == activeChatReceiverid
                 }" class="py-3 px-4 rounded-xl mb-2">
                   {{ message.text }}
                 </div>

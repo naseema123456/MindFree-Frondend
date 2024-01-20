@@ -12,8 +12,8 @@ export interface Appointment  {
 
   export interface IApiAppointment {
  
-    success:boolean
-    message: string
+    success?:boolean
+    message?: string
 
     data:  Appointment[] | []
 

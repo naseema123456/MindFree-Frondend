@@ -12,13 +12,13 @@ export class SocketIoService {
 
   connectSocket (id: string): void {
     this.socket = io(environment.baseUrl, { query: { id } })
-
   }
 
   listen (eventName: string): Observable<any> {
     return new Observable((subscribe) => {
       this.socket.on(eventName, (data) => {
         subscribe.next(data)
+        console.log(data,"listen data");
       })
     })
   }

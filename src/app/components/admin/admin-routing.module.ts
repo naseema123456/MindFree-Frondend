@@ -7,6 +7,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { AdminGuardGuard } from 'src/app/guard/admin-guard.guard';
 import { AdminAuthGuard } from 'src/app/guard/admin-auth.guard';
+import { MarketComponent } from './market/market.component';
 
 
 const routes: Routes = [
@@ -29,6 +30,9 @@ const routes: Routes = [
   },
   {
     path:'editUser/:userId',component:EditUserComponent,canActivate:[AdminGuardGuard]
+  },
+  {
+    path:'market',component:MarketComponent,canActivate:[AdminGuardGuard]
   },
   
 ];

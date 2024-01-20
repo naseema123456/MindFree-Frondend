@@ -10,6 +10,7 @@ export interface TradingRecord {
     target: number;
     stopLoss: number;
     percentage: number;
+    more: string;
     usedCapital: number;
     userId: {
       _id: string;

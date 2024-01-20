@@ -6,7 +6,7 @@ export interface Messages {
   }
   
   export interface Chat {
-    sender: string;
-    receiver: string;
-    messages: Messages[];
+    sender?: string;
+    receiver?: string;
+    messages?: Messages[];
   }

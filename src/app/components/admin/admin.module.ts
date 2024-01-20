@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { AdminRoutingModule } from './admin-routing.module';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -8,9 +7,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
 import { AdminSidebarComponent } from './admin-sidebar/admin-sidebar.component';
 import { UsersListComponent } from './users-list/users-list.component';
-
+import { AgChartsAngularModule } from 'ag-charts-angular';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { MarketComponent } from './market/market.component';
 
 
 
@@ -22,15 +22,18 @@ import { AddUserComponent } from './add-user/add-user.component';
     AdminSidebarComponent,
     UsersListComponent,
     AddUserComponent,
-   EditUserComponent
+   EditUserComponent,
+   MarketComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
+    AgChartsAngularModule,
     FormsModule ,
     ReactiveFormsModule,
 
-  ], exports: [
+  ],  bootstrap: [],
+   exports: [
     AdminNavbarComponent
   ]
 })

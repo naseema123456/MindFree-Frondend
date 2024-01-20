@@ -1,0 +1,39 @@
+<app-nav-bar></app-nav-bar>
+
+<app-profilesidebar></app-profilesidebar>
+
+<!-- market.component.html -->
+
+<div class="overflow-x-auto mt-20 ml-16">
+    <div class="text-center">
+        <h3 class="font-bold my-5">Your Trade</h3>
+        <table class="inline-block bg-white border border-gray-300">
+      <thead>
+        <tr>
+          <th  class="border p-2">Stock Name</th>
+          <th  class="border p-2" >Trade Type</th>
+          <th  class="border p-2">At the Price</th>
+          <th  class="border p-2">Quantity</th>
+          <th  class="border p-2">Target</th>
+          <th  class="border p-2">Stop Loss</th>
+          <th  class="border p-2">Used Capital</th>
+          <th  class="border p-2">More</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let trades of trade?.data; let i = index" [class]="i % 2 === 0 ? 'bg-gray-100' : 'bg-white'">
+          <td  class="border p-2">{{ trades.stockName }}</td>
+          <td  class="border p-2">{{ trades.tradeType }}</td>
+          <td  class="border p-2">{{ trades.atThePrice }}</td>
+          <td  class="border p-2">{{ trades.quantity }}</td>
+          <td  class="border p-2">{{ trades.target }}</td>
+          <td  class="border p-2">{{ trades.stopLoss }}</td>
+          <td  class="border p-2">{{ trades.usedCapital }}</td>
+          <td  class="border p-2">{{ trades.more }}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+  </div>
+  
+
