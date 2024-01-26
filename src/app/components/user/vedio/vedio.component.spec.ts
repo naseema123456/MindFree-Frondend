@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SetTimeComponent } from './set-time.component';
+import { VedioComponent } from './vedio.component';
 
-describe('SetTimeComponent', () => {
-  let component: SetTimeComponent;
-  let fixture: ComponentFixture<SetTimeComponent>;
+describe('VedioComponent', () => {
+  let component: VedioComponent;
+  let fixture: ComponentFixture<VedioComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SetTimeComponent]
+      declarations: [VedioComponent]
     });
-    fixture = TestBed.createComponent(SetTimeComponent);
+    fixture = TestBed.createComponent(VedioComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

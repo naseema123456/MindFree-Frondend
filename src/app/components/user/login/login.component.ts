@@ -210,4 +210,10 @@ export class LoginComponent implements OnInit {
       );
     }
   }
+  closeModal(){
+     this.showModal = false;
+     this.showOtpInput = false;
+     this.showEmail = false;
+     this.showPasswordInput = false;
+  }
 }

@@ -5,6 +5,7 @@ import { IApiAppointment, Appointment } from 'src/app/model/appoinment';
 import { ServiceService } from '../../../service/service.service';
 import { Chat, Messages } from 'src/app/model/message';
 import { SocketIoService } from 'src/app/service/socket-io.service';
+import { Router } from '@angular/router';
 
 interface Conversation {
   _id: string;
@@ -24,7 +25,7 @@ export class ScheduleComponent implements OnInit {
   @Input() conversation!: Conversation;
   @Input() currentUserId!: string;
 
-
+  waitingForLink: boolean = false;
   public chat: boolean = false;
   user: User | null = null;
   messageInput: string = '';
@@ -35,11 +36,13 @@ export class ScheduleComponent implements OnInit {
   public appointmentDetails: { receiverid: string; firstName: string; lastName: string }[] = [];
   activeChatReceiverid: string | undefined;
   activeChatUserId!: string | undefined;
+  reciver:string|undefined
   public matchingAppointmentTime: string | null = null;
   socket: any;
-
+  receivedData: any = null; 
   
   constructor(
+    private router: Router,
     private http: HttpClient,
     private socketService: SocketIoService,
     private service: ServiceService,
@@ -68,6 +71,24 @@ export class ScheduleComponent implements OnInit {
       console.log('Received data from receive-message:', data);
       this.updateMessage(data)
     });
+  
+    this.socketService.listen('link-event').subscribe((linkValue: string) => {
+      if (linkValue) {
+        this.waitingForLink = true;
+        // Handle the received link as needed
+        console.log('Received Link:', linkValue);
+      }
+    });
+
+    
+  this.socketService.listen('recieve-video').subscribe((data) => {
+    console.log("....................................");
+    
+    console.log('Received data from receive-video:', data);
+    this.receivedData = data;
+
+  });
+
   }
 
   updateMessage(res: Chat): void {
@@ -192,7 +213,8 @@ export class ScheduleComponent implements OnInit {
             // console.log('Formatted Appointment Start Time:', startTime);
             // console.log('Formatted Appointment End Time:', endTime);
 
-            const isMatching = formattedCurrentTime >= startTime && formattedCurrentTime <= endTime;
+            const isMatching = formattedCurrentTime <= startTime
+            // && formattedCurrentTime <= endTime
             // console.log('Is Matching:', isMatching);
             // console.log('Is Matching:', isMatching);
             // console.log('Current Time:', currentTime);
@@ -269,7 +291,25 @@ export class ScheduleComponent implements OnInit {
 
     }
   }
+  createRoom(time:string){
+// console.log(time);
+this.http.get<any>(`/user/getvideo/${this.activeChatUserId}/${time}`).subscribe(
+  (response: any) => {
+    console.log(response,"...........");
+    this.reciver = response; 
+    
+    this.router.navigate([`/user/videocall/${response}`]);
+  }
+);
+    
+  }
 
+  link(){
+  console.log("hi");
+  
+    window.open(this.receivedData);
+  }
+  
 
 }
 

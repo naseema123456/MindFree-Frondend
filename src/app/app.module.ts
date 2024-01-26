@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
-
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -41,6 +41,7 @@ import { environment } from 'src/environments/environment';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    CommonModule,
     // SocketIoModule.forRoot(config),
     StoreModule.forRoot({ userdetails: profileReducer }),
     StoreModule.forRoot({

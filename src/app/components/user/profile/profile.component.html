@@ -1,16 +1,13 @@
-<app-nav-bar style="opacity: 1;"></app-nav-bar>
+<app-nav-bar></app-nav-bar>    
+
+<app-profilesidebar></app-profilesidebar>
+<!-- <div class="grid grid-cols-12 "> -->
 
 
-<div class="grid grid-cols-12 ">
-    <div class="col-span-2">
-        <app-profilesidebar />
-    </div>
+    <div class="  bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-90 col-span-10 ">
 
 
-    <div class="  bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-90 col-span-10 mt-16 ">
-
-
-        <div class="flex flex-col items-center pb-7">
+        <div class="flex flex-col items-center pb-7 mt-9 sm:mt-24">
             <div *ngIf="role === 'callprovider'" class="justify-end">
                 <button class="sm:mr-4 bg-blue-500 text-white px-4 py-2 rounded-md mt-3" (click)="scheduleTime()">
                     Schedule Time
@@ -31,8 +28,9 @@
                 <p class="text-gray-500">{{phoneNumber}}</p>
                 <p class="text-gray-500">Role: {{role}}</p>
                 <p class="text-gray-500">
-                    Address: {{ address.name || 'N/A' }}, {{ address.house || 'N/A' }}, {{ address.post || 'N/A' }}, {{
-                    address.pin || 'N/A' }}, {{ address.contact || 'N/A' }}, {{ address.state || 'N/A' }}, {{
+                    Address: {{ address.name || 'N/A' }}, {{ address.house || 'N/A' }}, {{ address.post || 'N/A' }}, 
+                    <br>
+                    {{address.pin || 'N/A' }}, {{ address.contact || 'N/A' }}, {{ address.state || 'N/A' }}, {{
                     address.District || 'N/A' }}
                 </p>
 
@@ -53,11 +51,11 @@
 
 
     <div *ngIf="showModal" class="fixed inset-0 flex items-center justify-center z-50">
-        <div class="bg-white p-4 rounded shadow-md" style="width: 300px;">
-            <button type="button" class="close" (click)="closeModal()">
+        <div class="bg-gray-200 p-4 rounded shadow-md" style="width: 300px;">
+            <button type="button" class="close ml-56" (click)="closeModal()">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <h2>Edit User</h2>
+            <h2 class="font-bold">Edit User</h2>
 
             <form id="editUserForm">
                 <div *ngIf="showdetail">
@@ -70,6 +68,7 @@
                         class="mb-2 rounded-md border-gray-300 border p-1"><br>
 
                     <label for="email">Email:</label>
+                    <br>
                     <input type="email" id="email" name="email" [(ngModel)]="email"
                         class="mb-2 rounded-md border-gray-300 border p-1"><br>
 
@@ -116,7 +115,7 @@
             </form>
         </div>
     </div>
-</div>
+<!-- </div> -->
 
 
 <!-- Inside your component's template -->

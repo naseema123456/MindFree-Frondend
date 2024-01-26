@@ -1,12 +1,6 @@
 <app-admin-navbar></app-admin-navbar>
 <app-admin-sidebar></app-admin-sidebar>
-<!--  -->
 
-<!-- Your Ag-Grid-Angular application -->
-<!-- <ag-charts-angular
-  style="height: 70% ;width: 50%;"
-  [options]="chartOptions"
-></ag-charts-angular> -->
 
 
 <ag-charts-angular *ngIf="appointmentsData.length > 0"  style="height: 70% ;width: 50%;" [options]="chartOptions"></ag-charts-angular>

@@ -7,7 +7,11 @@ import { environment } from 'src/environments/environment'
   providedIn: 'root'
 })
 export class SocketIoService {
+  // emitUserCall(arg0: { to: string; offer: any; }) {
+  //   throw new Error('Method not implemented.');
+  // }
   private socket!: Socket;
+  onUserDisconnected$: any;
 
 
   connectSocket (id: string): void {
@@ -27,6 +31,15 @@ export class SocketIoService {
     console.log('Emitting data:', data);
     this.socket.emit(eventName, data)
   }
+
+  // emitJoinRoom( userId: string): void {
+  //   console.log("emitJoinRoom");
+    
+  //   this.socket.emit('join-room', userId);
+  // }
+  // emitBlinkingSignal(): void {
+  //   this.socket.emit('blinking-signal');
+  // }
 
   disconnectSocket (): void {
     this.socket.disconnect()

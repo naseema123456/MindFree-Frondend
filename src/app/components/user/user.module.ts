@@ -16,21 +16,16 @@ import { OptionBuyingComponent } from './option-buying/option-buying.component';
 import { OptionSellingComponent } from './option-selling/option-selling.component';
 import { SwingTradeComponent } from './swing-trade/swing-trade.component';
 import { ProfilesidebarComponent } from './profilesidebar/profilesidebar.component';
-// import { StoreModule } from '@ngrx/store';
-// import { appService } from './state/user.service'; 
-// import { UserGuardGuard } from 'src/app/guard/user-guard.guard';
-// import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ProfileComponent } from './profile/profile.component';
-import { RequestComponent } from './request/request.component';
 import { TradingComponent } from './trading/trading.component';
 import { AppoinmentComponent } from './appoinment/appoinment.component';
-import { SetTimeComponent } from './set-time/set-time.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { FooterComponent } from './footer/footer.component';
 import { YourtradeComponent } from './yourtrade/yourtrade.component';
+import { VedioComponent } from './vedio/vedio.component';
+import { ContactComponent } from './contact/contact.component';
+import { VediocallComponent } from './vediocall/vediocall.component';
 
-// import { EffectsModule } from '@ngrx/effects';
-// import { userEffects } from './state/user.effects';
 
 
 
@@ -38,26 +33,24 @@ import { YourtradeComponent } from './yourtrade/yourtrade.component';
 @NgModule({
   declarations: [
     NavBarComponent,
-
+    VediocallComponent,
     SignupComponent,
     LoginComponent,
     HomeComponent,
     OtpverificationComponent,
-    // UserProfileComponentComponent,
     SideBarComponent,
     OptionBuyingComponent,
     OptionSellingComponent,
     SwingTradeComponent,
-    // SweetAlert2Module,
     ProfilesidebarComponent,
     ProfileComponent,
-    RequestComponent,
     TradingComponent,
     AppoinmentComponent,
-    SetTimeComponent,
     ScheduleComponent,
     FooterComponent,
-    YourtradeComponent
+    YourtradeComponent,
+    VedioComponent,
+    ContactComponent,
   ],
   imports: [
     CommonModule,

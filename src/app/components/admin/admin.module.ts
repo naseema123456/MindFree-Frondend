@@ -11,6 +11,7 @@ import { AgChartsAngularModule } from 'ag-charts-angular';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { MarketComponent } from './market/market.component';
+import { MessagesComponent } from './messages/messages.component';
 
 
 
@@ -23,7 +24,8 @@ import { MarketComponent } from './market/market.component';
     UsersListComponent,
     AddUserComponent,
    EditUserComponent,
-   MarketComponent
+   MarketComponent,
+   MessagesComponent
   ],
   imports: [
     CommonModule,

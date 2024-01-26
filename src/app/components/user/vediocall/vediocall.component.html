@@ -1,0 +1,53 @@
+<div id="jitsi-iframe" style="height: 500%;width: 500%;" ></div>
+<!-- vediocall.component.html -->
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-5" >
+        <input formControlName="inputValue" type="text" placeholder="Enter value" />
+        <button type="submit">Submit</button>
+    </form>
+
+
+<!-- <form [formGroup]="joinForm" (ngSubmit)="onSubmit()">
+    <input formControlName="inputValue" type="text" placeholder="Past the the link..." />
+    <button type="submit">Start</button>
+  </form> -->
+<!-- <div class="item-center">
+    <span>Custom controls</span>
+</div> -->
+
+<!-- <div class="item-center" style="height: 500px; width: 500px;">
+    <i (click)="executeCommant('toggleAudio')" class="text-gray-800 text-2xl bg-gray-800 p-2 rounded-full" [ngClass]="{'fa-microphone-slash': isAudioMuted, 'fa-microphone': !isAudioMuted}" aria-hidden="true" title="Mute/Unmute"></i>
+    <i (click)="executeCommant('hangup')" class="text-red-800 fas fa-phone-slash text-2xl bg-red-800 p-2 rounded-full" aria-hidden="true" title="Leave"></i>
+    <i (click)="executeCommant('toggleVideo')" class="text-gray-800 text-2xl bg-gray-800 p-2 rounded-full" [ngClass]="{'fa-video-slash': isVideoMuted, 'fa-video': !isVideoMuted}" aria-hidden="true" title="Start/Stop Camera"></i>
+    <i (click)="executeCommant('toggleShareScreen')" class="text-gray-800 fas fa-film text-2xl bg-gray-800 p-2 rounded-full" aria-hidden="true" title="Share your Screen"></i>
+</div> -->
+
+<!-- 
+<div id="jitsi-iframe" style="height: 500px; width: 500px;"></div>
+<div class="item-center">
+    <span>Custom controls</span>
+</div> -->
+
+<!-- <div class="item-center" style="height: 500px; width: 500px;">
+    <i (click)="executeCommant('toggleAudio')" class="text-gray-800 text-2xl bg-gray-800 p-2 rounded-full" title="Mute/Unmute">
+        <ng-container *ngIf="isAudioMuted; else notMuted">
+            <span class="fas fa-microphone-slash" aria-hidden="true"></span>
+        </ng-container>
+        <ng-template #notMuted>
+            <span class="fas fa-microphone" aria-hidden="true"></span>
+        </ng-template>
+    </i>
+
+    <i (click)="executeCommant('hangup')" class="text-red-800 fas fa-phone-slash text-2xl bg-red-800 p-2 rounded-full" aria-hidden="true" title="Leave"></i>
+
+    <i (click)="executeCommant('toggleVideo')" class="text-gray-800 text-2xl bg-gray-800 p-2 rounded-full" title="Start/Stop Camera">
+        <ng-container *ngIf="isVideoMuted; else notMutedVideo">
+            <span class="fas fa-video-slash" aria-hidden="true"></span>
+        </ng-container>
+        <ng-template #notMutedVideo>
+            <span class="fas fa-video" aria-hidden="true"></span>
+        </ng-template>
+    </i>
+
+    <i (click)="executeCommant('toggleShareScreen')" class="text-gray-800 fas fa-film text-2xl bg-gray-800 p-2 rounded-full" aria-hidden="true" title="Share your Screen"></i>
+</div> -->

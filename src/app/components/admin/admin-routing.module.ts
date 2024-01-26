@@ -8,6 +8,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { AdminGuardGuard } from 'src/app/guard/admin-guard.guard';
 import { AdminAuthGuard } from 'src/app/guard/admin-auth.guard';
 import { MarketComponent } from './market/market.component';
+import { MessagesComponent } from './messages/messages.component';
 
 
 const routes: Routes = [
@@ -33,6 +34,9 @@ const routes: Routes = [
   },
   {
     path:'market',component:MarketComponent,canActivate:[AdminGuardGuard]
+  },
+  {
+    path:'message',component:MessagesComponent,canActivate:[AdminGuardGuard]
   },
   
 ];

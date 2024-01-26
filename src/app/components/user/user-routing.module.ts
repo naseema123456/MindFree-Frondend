@@ -12,12 +12,13 @@ import { OptionBuyingComponent } from './option-buying/option-buying.component';
 import { OptionSellingComponent } from './option-selling/option-selling.component';
 import { AuthGuardGuard } from 'src/app/guard/auth-guard.guard';
 import { ProfileComponent } from './profile/profile.component';
-import { RequestComponent } from './request/request.component';
 import { TradingComponent } from './trading/trading.component';
 import { AppoinmentComponent } from './appoinment/appoinment.component';
-import { SetTimeComponent } from './set-time/set-time.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { YourtradeComponent } from './yourtrade/yourtrade.component';
+import { VediocallComponent } from './vediocall/vediocall.component';
+import { VedioComponent } from './vedio/vedio.component';
+import { ContactComponent } from './contact/contact.component';
 
 
 
@@ -47,22 +48,25 @@ const routes: Routes = [
     path:'profile',component:ProfileComponent,canActivate:[UserGuardGuard]
   },
   {
-    path:'request',component:RequestComponent,canActivate:[UserGuardGuard]
-  },
-  {
     path:'trading',component:TradingComponent,canActivate:[UserGuardGuard]
   },
   {
     path:'appoinment',component:AppoinmentComponent,canActivate:[UserGuardGuard]
   },
   {
-    path:'setTime',component:SetTimeComponent,canActivate:[UserGuardGuard]
-  },
-  {
     path:'schedule',component:ScheduleComponent,canActivate:[UserGuardGuard]
   },
   {
     path:'yourtrade',component:YourtradeComponent,canActivate:[UserGuardGuard]
+  },
+  {
+    path:'videocall/:id',component:VediocallComponent,canActivate:[UserGuardGuard]
+  },
+  {
+    path:'video/:id',component:VedioComponent,canActivate:[UserGuardGuard]
+  },
+  {
+    path:'contact',component:ContactComponent,canActivate:[UserGuardGuard]
   },
   
   {
