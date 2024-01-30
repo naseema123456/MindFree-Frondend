@@ -12,7 +12,10 @@ export class HomeComponent implements OnInit {
   filteredtrade: TradingRecord[] = [];
   searchText: string = "";
   responseData: TradingRecord[] = [];
-
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
+  totalItems: number = 0;
+  totalPages: number = 0;
   constructor(private service: ServiceService) {}
 
   ngOnInit(): void {
@@ -23,6 +26,8 @@ export class HomeComponent implements OnInit {
     this.service.loadTrade().subscribe(
       (response: alltrade) => {
         this.responseData = response.data || [];
+        this.totalPages = Math.ceil(this.responseData.length / this.itemsPerPage);
+        this.applyPagination();
         this.trade = [...this.responseData];
         this.filteredtrade = [...this.responseData];
       },
@@ -47,6 +52,18 @@ export class HomeComponent implements OnInit {
         stockName.toLowerCase().includes(this.searchText.toLowerCase())
       );
     });
+  }
+
+  applyPagination(): void {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.filteredtrade = this.responseData.slice(startIndex, endIndex);
+  }
+
+  // Call this method when a pagination link is clicked
+  changePage(newPage: number): void {
+    this.currentPage = newPage;
+    this.applyPagination();
   }
   
 }
