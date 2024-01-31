@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   // baseUrl:"https://nazmashop.online/"
   baseUrl:"https://mind-free.onrender.com/"
+  // baseUrl:"http://localhost:3000"
 }
 
 /*

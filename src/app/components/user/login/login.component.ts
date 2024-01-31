@@ -191,7 +191,7 @@ export class LoginComponent implements OnInit {
     } else if (this.hasFormErrors(this.form)) {
       Swal.fire("Check Inputs", 'Enter all input fields properly', "warning");
     } else {
-      this.http.post<IApiUserRes>('/user/login', user, { withCredentials: true }).subscribe(
+      this.http.post<IApiUserRes>('/user/login', user, ).subscribe(
         (response:IApiUserRes) => {
        
           console.log(response,"............");
