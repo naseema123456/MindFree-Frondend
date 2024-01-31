@@ -213,7 +213,8 @@ export class ScheduleComponent implements OnInit {
             // console.log('Formatted Appointment Start Time:', startTime);
             // console.log('Formatted Appointment End Time:', endTime);
 
-            const isMatching = formattedCurrentTime <= startTime && formattedCurrentTime <= endTime
+            const isMatching = formattedCurrentTime >= startTime 
+            && formattedCurrentTime <= endTime
             // console.log('Is Matching:', isMatching);
             // console.log('Is Matching:', isMatching);
             // console.log('Current Time:', currentTime);
