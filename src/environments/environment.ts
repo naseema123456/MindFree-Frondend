@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl:"https://mind-free.onrender.com/"
+  baseUrl:"https://nazmashop.online"
 }
 
 /*
