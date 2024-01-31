@@ -1,0 +1,15 @@
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.page-item {
+    margin-right: 8px; /* Adjust as needed */
+}
+
+.page-link {
+    display: block;
+    padding: 8px 16px; /* Adjust as needed */
+    /* Add additional styles as needed */
+}
