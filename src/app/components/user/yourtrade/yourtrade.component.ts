@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { alltrade } from 'src/app/model/trading';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-yourtrade',
   templateUrl: './yourtrade.component.html',
   styleUrls: ['./yourtrade.component.css']
 })
-export class YourtradeComponent implements OnInit{
+export class YourtradeComponent implements OnInit,OnDestroy{
+  private subscriptions: Subscription = new Subscription();
 
 trade:alltrade|undefined
 
@@ -25,6 +27,8 @@ console.log(this.trade,"trade");
     }
   );
 }
-
+ngOnDestroy(): void {
+  this.subscriptions.unsubscribe();
+}
 
 }

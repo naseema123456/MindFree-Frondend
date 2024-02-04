@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TradingRecord } from 'src/app/model/trading';
-import { Router } from '@angular/router';
+import { TradingRecord } from '../../../model/trading';
 import { ChangeDetectorRef } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import Swal from 'sweetalert2';
 
@@ -12,9 +12,9 @@ import Swal from 'sweetalert2';
   templateUrl: './trading.component.html',
   styleUrls: ['./trading.component.css']
 })
-export class TradingComponent {
+export class TradingComponent implements OnDestroy{
   isSubmitted = false;
-
+  private subscriptions: Subscription = new Subscription();
   stockForm!: FormGroup;
   showMiddleItemsButton: boolean = false;
   previousStockName!: string;
@@ -22,8 +22,6 @@ export class TradingComponent {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
-    private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
     private formBuilder: FormBuilder
     ) {
@@ -86,18 +84,23 @@ export class TradingComponent {
       const formData = this.stockForm.value;
       console.log(formData);
       
-      this.http.post<TradingRecord>('/callprovider/trade', formData, { withCredentials: true }).subscribe(
-        (response:TradingRecord) => {
-          console.log(response,"............");
-         let Id=response.id
-    
-         Swal.fire('Success','Saved','success')
+      this.http.post<TradingRecord>('/callprovider/trade', formData, { withCredentials: true }).subscribe({
+        next: (response: TradingRecord) => {
+          console.log(response, "............");
+          let Id = response.id;
+      
+          Swal.fire('Success', 'Saved', 'success');
         },
-        (err) => {
+        error: (err) => {
           console.log(err);
           Swal.fire('Error', err.error.message, 'error');
+        },
+        complete: () => {
+    
+          console.log('Request completed');
         }
-      );
+      });
+      
      
     } else {
       // Handle invalid form
@@ -138,6 +141,9 @@ export class TradingComponent {
     // Update button visibility
     this.showMiddleItemsButton = this.isOptionSelling() && this.areAtThePricesValid();
     this.cdr.detectChanges();
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
 

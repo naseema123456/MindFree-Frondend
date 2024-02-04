@@ -1,54 +1,59 @@
 <div class="max-w-sm mx-auto mt-6">
-  <div class="bg-white shadow-md border border-gray-200 rounded-lg p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700 shadow-md">
+  <div
+    class="bg-white shadow-md border border-gray-200 rounded-lg p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700 shadow-md">
     <div class="flex flex-col justify-center items-center">
       <img class="mx-auto h-8 w-auto" src="/assets/image/2.png" alt="Your Company">
       <h2 class="mt-6 text-center text-lg font-bold leading-6 tracking-tight text-gray-900">Sign in to your account</h2>
     </div>
 
     <form class="mt-6 space-y-4" [formGroup]="form" (submit)="onSubmit()">
-          <div>
-            <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
-            <div class="mt-2">
-              <input id="email" formControlName="email" name="email" type="email" autocomplete="email" required class="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              <div *ngIf="isSubmitted && form.controls['email'].errors">
-                <div *ngIf=" form.controls['email']?.errors?.['required']" style="color: red;">Email is required</div>
-    
-                <div *ngIf="f['email']?.errors?.['email']" style="color: red;">Invalid email format</div>
-            </div>
-            </div>
-            
+      <div>
+        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+        <div class="mt-2">
+          <input id="email" formControlName="email" name="email" type="email" autocomplete="email" required
+            class="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          <div *ngIf="isSubmitted && form.controls['email'].errors">
+            <div *ngIf=" form.controls['email']?.errors?.['required']" style="color: red;">Email is required</div>
+
+            <div *ngIf="f['email']?.errors?.['email']" style="color: red;">Invalid email format</div>
           </div>
-    
-          <div>
-            <div class="flex items-center justify-between">
-              <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
-              <div class="text-sm">
-                <a (click)="toggleModal()" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
-              </div>
-            </div>
-            <div class="mt-2">
-              <input id="password" formControlName="password" name="password" type="password" autocomplete="current-password" required class="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              <div *ngIf="isSubmitted && f['password'].errors">
-                <div *ngIf="f['password'].errors['required']" style="color: red;">Password is required</div>
-            </div>
-            </div>
-          </div>
-    
-          <button type="submit" class="w-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring focus:border-indigo-300">
-            Sign in
-          </button>
-        </form>
-    
-        <p class="mt-4 text-center text-sm text-gray-500">
-          Not a member?
-          <a href="/user/register" class="font-semibold text-indigo-600 hover:text-indigo-500">Register</a>
-        </p>
+        </div>
+
       </div>
-    </div>
+
+      <div>
+        <div class="flex items-center justify-between">
+          <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+          <div class="text-sm">
+            <a (click)="toggleModal()" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+          </div>
+        </div>
+        <div class="mt-2">
+          <input id="password" formControlName="password" name="password" type="password"
+            autocomplete="current-password" required
+            class="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          <div *ngIf="isSubmitted && f['password'].errors">
+            <div *ngIf="f['password'].errors['required']" style="color: red;">Password is required</div>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit"
+        class="w-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring focus:border-indigo-300">
+        Sign in
+      </button>
+    </form>
+
+    <p class="mt-4 text-center text-sm text-gray-500">
+      Not a member?
+      <a href="/user/register" class="font-semibold text-indigo-600 hover:text-indigo-500">Register</a>
+    </p>
+  </div>
+</div>
 
 
 
- 
+
 
 
 
@@ -59,10 +64,10 @@
 
   <div class="bg-white p-6 rounded shadow-md">
     <!-- Your modal content goes here -->
-    <div *ngIf="showEmail" >
+    <div *ngIf="showEmail">
       <button type="button" class="close " (click)="closeModal()">
         <span aria-hidden="true">&times;</span>
-    </button>
+      </button>
       <div>
         <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
         <div class="mt-2">
@@ -78,56 +83,60 @@
           OTP</button>
       </div>
     </div>
-    
-    
+
+
     <div *ngIf="showOtpInput">
       <div class="mt-4">
         <button type="button" class="close " (click)="closeModal()">
           <span aria-hidden="true">&times;</span>
-      </button>
+        </button>
         <label for="otp" class="block text-sm font-medium leading-6 text-gray-900">OTP</label>
         <div class="mt-2">
           <!-- Use ngModel for two-way data binding -->
-          <input id="otp" [(ngModel)]="otp" name="otp" type="text" placeholder="Enter 4-digit OTP" maxlength="4" autocomplete="off" required
+          <input id="otp" [(ngModel)]="otp" name="otp" type="text" placeholder="Enter 4-digit OTP" maxlength="4"
+            autocomplete="off" required
             class="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
         </div>
       </div>
-    
+
       <div class="flex justify-center items-center">
         <!-- Use (click) to bind the click event to the sendOtp() method -->
         <button (click)="verifyOtp()" type="button"
           class="mt-2 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">verifyOtp
-         </button>
+        </button>
       </div>
     </div>
     <div *ngIf="showPasswordInput">
       <div class="mt-4">
         <button type="button" class="close " (click)="closeModal()">
           <span aria-hidden="true">&times;</span>
-      </button>
+        </button>
         <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
         <div class="mt-2">
-          <input id="password" [(ngModel)]="password" name="password" type="password" placeholder="Enter your password" autocomplete="new-password" required
+          <input id="password" [(ngModel)]="password" name="password" type="password" placeholder="Enter your password"
+            autocomplete="new-password" required
             class="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
         </div>
       </div>
-    
+
       <!-- Confirm Password Input Section -->
       <div class="mt-4">
         <label for="confirmPassword" class="block text-sm font-medium leading-6 text-gray-900">Confirm Password</label>
         <div class="mt-2">
           <button type="button" class="close " (click)="closeModal()">
             <span aria-hidden="true">&times;</span>
-        </button>
-          <input id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm your password" autocomplete="new-password" required
+          </button>
+          <input id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" type="password"
+            placeholder="Confirm your password" autocomplete="new-password" required
             class="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
         </div>
       </div>
-    
+
       <!-- Button to Update Password -->
       <div class="flex justify-center items-center">
         <button (click)="updatePassword()" type="button"
-          class="mt-2 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Update Password
+          class="mt-2 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Update
+          Password
         </button>
       </div>
     </div>
@@ -135,5 +144,3 @@
     <!-- <button (click)="onClose()">Close</button> -->
   </div>
 </div>
-
-  

@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { ServiceService } from '../../../service/service.service';
-import { alltrade,TradingRecord } from 'src/app/model/trading';
+import { alltrade,TradingRecord } from '../../../model/trading';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-swing-trade',
   templateUrl: './swing-trade.component.html',
   styleUrls: ['./swing-trade.component.css']
 })
-export class SwingTradeComponent  implements OnInit {
+export class SwingTradeComponent  implements OnInit,OnDestroy {
+  private subscriptions: Subscription = new Subscription();
   trade: TradingRecord[] = [];
   filteredtrade: TradingRecord[] = [];
   searchText: string = "";
@@ -21,21 +23,24 @@ export class SwingTradeComponent  implements OnInit {
   }
 
   loadTrade(): void {
-    this.service.loadTrade().subscribe(
-      (response: alltrade) => { 
+    this.service.loadTrade().subscribe({
+      next: (response: alltrade) => {
         this.responseData = response.data || [];
         this.trade = [...this.responseData];
         this.filteredtrade = [...this.responseData];
         console.log(this.responseData);
-    
-        
       },
-      (error) => {
-        console.error('Error loading trade:', error);
-      }
-    );
-  }
+      error: (error: Error) => {
+        console.error(error);
 
+      },
+      complete: () => {
+        console.log('Completed');
+        // Handle completion if needed
+      }
+    });
+  }
+  
 
   search(): void {
     if (!this.searchText || this.trade.length === 0) {
@@ -52,5 +57,8 @@ export class SwingTradeComponent  implements OnInit {
         stockName.toLowerCase().includes(this.searchText.toLowerCase())
       );
     });
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

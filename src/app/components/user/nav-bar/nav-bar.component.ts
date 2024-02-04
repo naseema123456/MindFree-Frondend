@@ -12,16 +12,16 @@ export class NavBarComponent {
 
     private http: HttpClient,
     private router: Router
-  ) {}
+  ) { }
 
-  
-  logout(){
-  console.log('hiiiiii');
 
-       // Log the user outid
-       localStorage.removeItem('userToken');
-       localStorage.removeItem('id');
-        this.router.navigate(['/user/login']);
-     
+  logout() {
+    console.log('hiiiiii');
+
+    // Log the user outid
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('id');
+    this.router.navigate(['/user/login']);
+
   }
 }

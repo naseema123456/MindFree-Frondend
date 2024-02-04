@@ -1,7 +1,9 @@
 import { createReducer, on } from "@ngrx/store";
 import { User } from "src/app/model/usermodel";
 import {  retrieveProfileSuccess } from "../state/user.action";
-import { state } from "@angular/animations";
+import { Action } from '@ngrx/store';
+
+
 
 
 export const userInitialState: User = {
@@ -32,7 +34,8 @@ const _ProfileReducer = createReducer(
   );
   
 
-export function profileReducer(state:any, action: any){
-    return _ProfileReducer(state, action)
+  export function profileReducer(state: User | undefined, action: Action) {
+    return _ProfileReducer(state, action);
 }
+
 

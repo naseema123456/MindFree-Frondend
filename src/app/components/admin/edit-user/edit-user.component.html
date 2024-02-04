@@ -1,31 +1,30 @@
 <app-admin-navbar></app-admin-navbar>
 <div class="max-w-md mx-auto bg-white p-8 border rounded-md shadow-md mt-5">
-  
-    
-    <form class="space-y-6" [formGroup]="form" (submit)="onSubmit()">
-        <h2 class="text-center">Edit User</h2>
-      
-        <div>
-          <label for="role" class="block text-sm font-medium leading-6 text-gray-900">Role</label>
-          <div class="mt-2">
-            <select id="role" formControlName="role" name="role" required 
-                    class="form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
-              <option value="callprovider">Call Provider</option>
-            </select>
-          </div>
-        </div>
-        
 
-     
-      
 
-      <!-- Include other form fields similarly -->
-  
-      <div class="flex justify-between">
-        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">submit</button>
+  <form class="space-y-6" [formGroup]="form" (submit)="onSubmit()">
+    <h2 class="text-center">Edit User</h2>
+
+    <div>
+      <label for="role" class="block text-sm font-medium leading-6 text-gray-900">Role</label>
+      <div class="mt-2">
+        <select id="role" formControlName="role" name="role" required
+          class="form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+          <option value="callprovider">Call Provider</option>
+        </select>
       </div>
-    </form>
-  </div>
-  
+    </div>
+
+
+
+
+
+    <!-- Include other form fields similarly -->
+
+    <div class="flex justify-between">
+      <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">submit</button>
+    </div>
+  </form>
+</div>

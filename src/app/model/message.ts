@@ -10,3 +10,11 @@ export interface Messages {
     receiver?: string;
     messages?: Messages[];
   }
+
+  export interface VideoLink {
+    url: string;
+    // Add other properties as expected from the 'recieve-video' event
+  }
+
+  
+  

@@ -1,87 +1,98 @@
-
 <app-nav-bar></app-nav-bar>
 <div class="flex h-screen bg-gray-200" :class="{ 'hidden': !isSidebarOpen }">
-    <div class="flex flex-col flex-shrink-0 bg-white border-r">
-        <div class="flex-shrink-0">
-            <!-- Sidebar content -->
-          <!-- <app-side-bar></app-side-bar> -->
-          <app-side-bar></app-side-bar>
-        
-    
-          <div class="input-group flex align-items-center justify-end mr-10 sm:mr-28 my-3">
-            <input [ngStyle]="{ 'height' : '38px','background-color': '#f8f9fa', 'border': '1px solid #ced4da', 'border-radius': '5px'  }" placeholder="Search" type="text" [(ngModel)]="searchText" class="input" (input)="search()" >
-          </div>
-          <div class="container mx-auto ">
-            <div class="overflow-x-auto md:block">
-              <table class="min-w-full bg-slate-100 border border-gray-300">
-      <thead>
-        <tr>
-            <!-- <th class="border-b p-2 text-sm">#</th> -->
-            <th class="border-b p-2 text-sm">callprovider</th>
-            <th class="border-b p-7 text-sm">Date</th>
-            <th class="border-b p-2 text-sm">Stock Name</th>
-            <th class="border-b p-2 text-sm">At Price</th>
-            <th class="border-b p-2 text-sm">Quantity</th>
-            <th class="border-b p-2 text-sm">Stock Loss</th>
-            <th class="border-b p-2 text-sm">Target</th>
-            <th class="border-b p-2 text-sm">Exit Price</th>
-            <th class="border-b p-2 text-sm">Profit/Loss</th>
-            <th class="border-b p-2 text-sm">Percentage</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Add your data rows here -->
-        
-        <tr *ngFor="let trades of filteredtrade">
-          <ng-container *ngIf="trades.tradeType == 'holding'">
-            <td class="border-b p-1 text-sm">{{ trades.userId.firstName }} {{ trades.userId.lastName }}</td>
-            <td class="border-b p-1 text-sm">{{ trades.date | date:'yyyy-MM-dd' }}</td>
+  <div class="flex flex-col flex-shrink-0 bg-white border-r">
+    <div class="flex-shrink-0">
+      <!-- Sidebar content -->
+      <!-- <app-side-bar></app-side-bar> -->
+      <app-side-bar></app-side-bar>
 
-            <td class="border-b p-1 text-sm">{{trades.stockName}}</td>
-            <td class="border-b p-1 text-sm">{{trades.atThePrice}}</td>
-            <td class="border-b p-1 text-sm">{{trades.quantity}}</td>
-            <td class="border-b p-1 text-sm">{{trades.stopLoss}}</td>
-            <td class="border-b p-1 text-sm">{{trades.target}}</td>
-            <td class="border-b p-1 text-sm">100</td>
-            <td class="border-b p-1 text-sm text-red-500">-100</td>
-            <td class="border-b p-1 text-sm text-red-500">-10%</td>
-          </ng-container>
-          </tr>
-        <!-- Add more rows as needed -->
-      </tbody>
-    </table>
- 
-  </div>
-  <div class="container mx-auto my-4 ml-8">
-    <nav aria-label="Page navigation">
-      <ul class="pagination">
-        <li class="page-item" [class.disabled]="currentPage === 1">
-          <a class="page-link" href="javascript:void(0)" (click)="changePage(currentPage - 1)"> Previous</a>
-        </li>
-        <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="i + 1 === currentPage">
-          <a class="page-link" href="javascript:void(0)" (click)="changePage(i + 1)">{{ i + 1 }}</a>
-        </li>
-        <li class="page-item" [class.disabled]="currentPage === totalPages">
-          <a class="page-link" href="javascript:void(0)" (click)="changePage(currentPage + 1)">Next</a>
-        </li>
-      </ul>
-      
-    </nav>
-  </div>
-  <div class="ml-8 m-4 bg-slate-200 flex">
 
-    <h1> "Stock trading involves buying and selling shares of publicly traded companies. Traders seek to profit from fluctuations in stock prices, often relying on technical analysis and fundamental analysis to make informed decisions. The stock market is influenced by factors such as company performance, economic indicators, and global events."</h1>
-  </div>
-      <div class="ml-8   m-4 bg-pink-100 flex">
+      <div class="input-group flex align-items-center justify-end mr-10 sm:mr-28 my-3">
+        <input
+          [ngStyle]="{ 'height' : '38px','background-color': '#f8f9fa', 'border': '1px solid #ced4da', 'border-radius': '5px'  }"
+          placeholder="Search" type="text" [(ngModel)]="searchText" class="input" (input)="search()">
+      </div>
+      <div class="container mx-auto ">
+        <div class="overflow-x-auto md:block">
+          <table class="min-w-full bg-slate-100 border border-gray-300">
+            <thead>
+              <tr>
+                <!-- <th class="border-b p-2 text-sm">#</th> -->
+                <th class="border-b p-2 text-sm">callprovider</th>
+                <th class="border-b p-7 text-sm">Date</th>
+                <th class="border-b p-2 text-sm">Stock Name</th>
+                <th class="border-b p-2 text-sm">At Price</th>
+                <th class="border-b p-2 text-sm">Quantity</th>
+                <th class="border-b p-2 text-sm">Stock Loss</th>
+                <th class="border-b p-2 text-sm">Target</th>
+                <th class="border-b p-2 text-sm">Exit Price</th>
+                <th class="border-b p-2 text-sm">Profit/Loss</th>
+                <th class="border-b p-2 text-sm">Percentage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Add your data rows here -->
 
-            <h1> "Stock trading involves buying and selling shares of publicly traded companies. Traders seek to profit from fluctuations in stock prices, often relying on technical analysis and fundamental analysis to make informed decisions. The stock market is influenced by factors such as company performance, economic indicators, and global events."</h1>
-          </div>
-          <div class="ml-8   m-4 bg-slate-200">
+              <tr *ngFor="let trades of filteredtrade">
+                <ng-container *ngIf="trades.tradeType == 'holding'">
+                  <td class="border-b p-1 text-sm">{{ trades.userId.firstName }} {{ trades.userId.lastName }}</td>
+                  <td class="border-b p-1 text-sm">{{ trades.date | date:'yyyy-MM-dd' }}</td>
 
-            <h1> "Stock trading involves buying and selling shares of publicly traded companies. Traders seek to profit from fluctuations in stock prices, often relying on technical analysis and fundamental analysis to make informed decisions. The stock market is influenced by factors such as company performance, economic indicators, and global events."</h1>
-          </div>
-</div>
-</div>
-<app-footer></app-footer>
+                  <td class="border-b p-1 text-sm">{{trades.stockName}}</td>
+                  <td class="border-b p-1 text-sm">{{trades.atThePrice}}</td>
+                  <td class="border-b p-1 text-sm">{{trades.quantity}}</td>
+                  <td class="border-b p-1 text-sm">{{trades.stopLoss}}</td>
+                  <td class="border-b p-1 text-sm">{{trades.target}}</td>
+                  <td class="border-b p-1 text-sm">100</td>
+                  <td class="border-b p-1 text-sm text-red-500">-100</td>
+                  <td class="border-b p-1 text-sm text-red-500">-10%</td>
+                </ng-container>
+              </tr>
+              <!-- Add more rows as needed -->
+            </tbody>
+          </table>
 
-<router-outlet></router-outlet>
+        </div>
+        <div class="container mx-auto my-4 ml-8">
+          <nav aria-label="Page navigation">
+            <ul class="pagination">
+              <li class="page-item" [class.disabled]="currentPage === 1">
+                <a class="page-link" href="javascript:void(0)" (click)="changePage(currentPage - 1)"> Previous</a>
+              </li>
+              <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
+                [class.active]="i + 1 === currentPage">
+                <a class="page-link" href="javascript:void(0)" (click)="changePage(i + 1)">{{ i + 1 }}</a>
+              </li>
+              <li class="page-item" [class.disabled]="currentPage === totalPages">
+                <a class="page-link" href="javascript:void(0)" (click)="changePage(currentPage + 1)">Next</a>
+              </li>
+            </ul>
+
+          </nav>
+        </div>
+        <div class="ml-8 m-4 bg-slate-200 flex">
+
+          <h1> "Stock trading involves buying and selling shares of publicly traded companies. Traders seek to profit
+            from fluctuations in stock prices, often relying on technical analysis and fundamental analysis to make
+            informed decisions. The stock market is influenced by factors such as company performance, economic
+            indicators, and global events."</h1>
+        </div>
+        <div class="ml-8   m-4 bg-pink-100 flex">
+
+          <h1> "Stock trading involves buying and selling shares of publicly traded companies. Traders seek to profit
+            from fluctuations in stock prices, often relying on technical analysis and fundamental analysis to make
+            informed decisions. The stock market is influenced by factors such as company performance, economic
+            indicators, and global events."</h1>
+        </div>
+        <div class="ml-8   m-4 bg-slate-200">
+
+          <h1> "Stock trading involves buying and selling shares of publicly traded companies. Traders seek to profit
+            from fluctuations in stock prices, often relying on technical analysis and fundamental analysis to make
+            informed decisions. The stock market is influenced by factors such as company performance, economic
+            indicators, and global events."</h1>
+        </div>
+      </div>
+    </div>
+    <app-footer></app-footer>
+
+    <router-outlet></router-outlet>

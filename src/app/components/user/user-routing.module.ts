@@ -17,7 +17,6 @@ import { AppoinmentComponent } from './appoinment/appoinment.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { YourtradeComponent } from './yourtrade/yourtrade.component';
 import { VediocallComponent } from './vediocall/vediocall.component';
-import { VedioComponent } from './vedio/vedio.component';
 import { ContactComponent } from './contact/contact.component';
 
 
@@ -61,9 +60,6 @@ const routes: Routes = [
   },
   {
     path:'videocall/:id',component:VediocallComponent,canActivate:[UserGuardGuard]
-  },
-  {
-    path:'video/:id',component:VedioComponent,canActivate:[UserGuardGuard]
   },
   {
     path:'contact',component:ContactComponent,canActivate:[UserGuardGuard]

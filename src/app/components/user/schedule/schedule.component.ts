@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit, } from '@angular/core';
-import { User } from 'src/app/model/usermodel';
-import { IApiAppointment, Appointment } from 'src/app/model/appoinment';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { User } from '../../../model/usermodel';
+import { IApiAppointment, Appointment } from '../../../model/appoinment';
 import { ServiceService } from '../../../service/service.service';
-import { Chat, Messages } from 'src/app/model/message';
-import { SocketIoService } from 'src/app/service/socket-io.service';
+import { Chat, Messages } from '../../../model/message';
+import { SocketIoService } from '../../../service/socket-io.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { VideoLink } from 'src/app/model/message';
 
 interface Conversation {
   _id: string;
@@ -21,7 +23,8 @@ interface Conversation {
   styleUrls: ['./schedule.component.css']
 })
 
-export class ScheduleComponent implements OnInit {
+export class ScheduleComponent implements OnInit, OnDestroy {
+  private subscriptions: Subscription = new Subscription();
   @Input() conversation!: Conversation;
   @Input() currentUserId!: string;
 
@@ -31,16 +34,16 @@ export class ScheduleComponent implements OnInit {
   messageInput: string = '';
   firstName: string = "";
   chats: Chat[] = [];
-  messages: any[] = [];
+  messages: Messages[] = [];
   public appointmentsData: Appointment[] = [];
   public appointmentDetails: { receiverid: string; firstName: string; lastName: string }[] = [];
   activeChatReceiverid: string | undefined;
   activeChatUserId!: string | undefined;
-  reciver:string|undefined
+  reciver: string | undefined
   public matchingAppointmentTime: string | null = null;
-  socket: any;
-  receivedData: any = null; 
-  
+
+  receivedData: VideoLink | null = null;
+
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -71,7 +74,7 @@ export class ScheduleComponent implements OnInit {
       console.log('Received data from receive-message:', data);
       this.updateMessage(data)
     });
-  
+
     this.socketService.listen('link-event').subscribe((linkValue: string) => {
       if (linkValue) {
         this.waitingForLink = true;
@@ -80,14 +83,14 @@ export class ScheduleComponent implements OnInit {
       }
     });
 
-    
-  this.socketService.listen('recieve-video').subscribe((data) => {
-    console.log("....................................");
-    
-    console.log('Received data from receive-video:', data);
-    this.receivedData = data;
 
-  });
+    this.socketService.listen('recieve-video').subscribe((data) => {
+      console.log("....................................");
+
+      console.log('Received data from receive-video:', data);
+      this.receivedData = data;
+
+    });
 
   }
 
@@ -138,9 +141,7 @@ export class ScheduleComponent implements OnInit {
   }
 
   nextAppointmentTime: string | null = null;
-  ngOnDestroy(): void {
-    this.socketService.disconnectSocket()
-  }
+
 
   // Update your loadAllAppoinment() method
   loadAllAppoinment(): void {
@@ -153,7 +154,7 @@ export class ScheduleComponent implements OnInit {
           console.log(this.appointmentsData, "response load appointment");
 
 
-          // Check if the current time matches any appointment time
+
           const currentTime = new Date();
 
           let formattedCurrentTime: string;
@@ -171,7 +172,7 @@ export class ScheduleComponent implements OnInit {
 
           this.appointmentsData.forEach(appointment => {
             // console.log('Original Start Time:', appointment.time);
-            function isCallProvider(obj: any): obj is {
+            function isCallProvider(obj: unknown): obj is {
               _id?: string;
               firstName?: string;
               lastName?: string;
@@ -196,7 +197,7 @@ export class ScheduleComponent implements OnInit {
               const lastName = appointment.userId?.lastName || '';
 
               const senserId = appointment.callprovider
-              this.activeChatUserId = senserId
+              // this.activeChatUserId = senserId
 
               this.appointmentDetails.push({ receiverid, firstName, lastName });
             }
@@ -213,8 +214,8 @@ export class ScheduleComponent implements OnInit {
             // console.log('Formatted Appointment Start Time:', startTime);
             // console.log('Formatted Appointment End Time:', endTime);
 
-            const isMatching = formattedCurrentTime >= startTime 
-            && formattedCurrentTime <= endTime
+            const isMatching = formattedCurrentTime >= startTime
+              && formattedCurrentTime <= endTime
             // console.log('Is Matching:', isMatching);
             // console.log('Is Matching:', isMatching);
             // console.log('Current Time:', currentTime);
@@ -246,10 +247,10 @@ export class ScheduleComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error loading appointments:', error);
-        // Handle the error scenario appropriately (e.g., show a message to the user)
+
       },
       complete: () => {
-        // Optional: Any cleanup or finalization logic after the observable is complete
+
       }
     });
   }
@@ -276,40 +277,56 @@ export class ScheduleComponent implements OnInit {
   // }
 
   openChat(userId: string | undefined): void {
-    if (userId) {
+    if (userId && this.activeChatUserId) { // Ensure both userId and activeChatUserId are defined
       this.chat = true;
       this.activeChatReceiverid = userId;
 
-      this.http.get<any>(`/user/gethistory/${this.activeChatUserId}/${this.activeChatReceiverid}`).subscribe(
-        (response: any) => {
+      this.http.get<Chat>(`/user/gethistory/${this.activeChatUserId}/${this.activeChatReceiverid}`).subscribe({
+        next: (response: Chat) => {
           console.log(response, "history");
-          this.chats = response.chat;
-          // this.updateMessage(response.chat); 
-        }
-      );
+          this.chats = response.messages || []; // Ensure messages is defined or fallback to an empty array
+        },
+        error: (error) => {
+          console.error("Error fetching chat history:", error);
 
+        }
+      });
+    } else {
+      // Handle the case where userId or activeChatUserId is undefined
+      console.error("userId or activeChatUserId is undefined");
 
     }
   }
-  createRoom(time:string){
-// console.log(time);
-this.http.get<any>(`/user/getvideo/${this.activeChatUserId}/${time}`).subscribe(
-  (response: any) => {
-    console.log(response,"...........");
-    this.reciver = response; 
-    
-    this.router.navigate([`/user/videocall/${response}`]);
-  }
-);
-    
+
+  createRoom(time: string) {
+    // console.log(time);
+    this.http.get<string>(`/user/getvideo/${this.activeChatUserId}/${time}`).subscribe(
+      (response: string) => {
+        console.log(response, "...........");
+        this.reciver = response;
+
+        this.router.navigate([`/user/videocall/${response}`]);
+      }
+    );
+
   }
 
-  link(){
-  console.log("hi");
-  
-    window.open(this.receivedData);
+  link() {
+    console.log("hi");
+
+    if (this.receivedData && this.receivedData.url) {
+      // Ensure this.receivedData is not null and has a 'url' property
+      window.open(this.receivedData.url); // Open the URL in a new tab/window
+    } else {
+      console.error('Received data is null or does not contain a URL');
+      // Optionally handle the error case, such as showing a notification to the user
+    }
   }
-  
+
+  ngOnDestroy(): void {
+    this.socketService.disconnectSocket()
+    this.subscriptions.unsubscribe();
+  }
 
 }
 

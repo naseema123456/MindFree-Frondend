@@ -1,11 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-
-import { AfterViewInit, Component, OnInit,ChangeDetectorRef } from '@angular/core';
-
+import { Subscription } from 'rxjs';
+import { AfterViewInit, Component, OnInit,OnDestroy } from '@angular/core';
 import { IApiUserRes } from 'src/app/model/usermodel';
-// import { User } from 'src/app/model/usermodel';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Emitters } from 'src/app/emitters/emitter';
 import { UserModule } from '../user.module';
 import { Store, select } from '@ngrx/store';
@@ -21,14 +17,14 @@ import { IApiAppointment } from 'src/app/model/appoinment';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent  implements OnInit, AfterViewInit {
-  // form: FormGroup;
+export class ProfileComponent  implements OnInit, AfterViewInit,OnDestroy {
+  private subscriptions: Subscription = new Subscription();
   public showModal: boolean = false;
   public showAddress: boolean = false;
   public showdetail: boolean = false;
   public Time: boolean = false;
   availableTimeSlots: { label: string;  confirmed?: boolean; selected: boolean ;disabled?: boolean}[] = [];
-  appointments: any[] = []; // Adjust the type as needed
+  appointments: IApiAppointment[] = []; // Adjust the type as needed
 
   public id: string = '';
   public firstName: string = '';
@@ -53,8 +49,6 @@ export class ProfileComponent  implements OnInit, AfterViewInit {
   constructor(
     private service: ServiceService,
     private http: HttpClient,
-    private cdr: ChangeDetectorRef ,
-    private router: Router,
     private store: Store<{userdetails:UserModule}>
   ){}
   userData$ = this.store.pipe(select(userProfileSelector)).subscribe( cleanedData => {
@@ -76,8 +70,8 @@ export class ProfileComponent  implements OnInit, AfterViewInit {
 
 
   loadAppoinment(): void {
-  this.service.loadAppoinment().subscribe(
-    (response: IApiAppointment) => {
+  this.service.loadAppoinment().subscribe({
+    next: (response: IApiAppointment) => {
       
       if (response.success) {
         const data = response.data ? [response] : [];
@@ -88,10 +82,10 @@ export class ProfileComponent  implements OnInit, AfterViewInit {
         console.error('Error loading users:', response.message);
       }
     },
-    (error:Error) => {
-      console.error('Error loading users', error);
+    error: (error: Error) => {
+      console.error('Error loading appointments', error);
     }
-  );
+  });
 }
 
 editModal() {
@@ -121,18 +115,17 @@ editModal() {
 console.log("submit",this.selectedFile);
 
 
+this.http.post(`/profile/upload`, formData).subscribe({
+  next: () => {
+    Emitters.authEmitter.emit(true); // Notify that the upload was successful
+    this.store.dispatch(retrieveProfile()); // Trigger a state update
+    Swal.fire('Success', 'Saved', 'success'); // Show success notification
+  },
+  error: (err) => {
+    Swal.fire("Error", err.error.message, 'error'); // Show error notification
+  }
+});
 
-    this.http.post(`/profile/upload`,formData,)
-    .subscribe(
-      () => {
-        Emitters.authEmitter.emit(true);
-        this.store.dispatch(retrieveProfile());
-        Swal.fire('Success','Saved','success')
-      },
-      (err) => {
-        Swal.fire("Error",err.error.message,'error');
-      }
-    )
   }
 
   
@@ -173,17 +166,17 @@ console.log("submit",this.selectedFile);
   this.showModal=false;
   this.showAddress=false
   this.showdetail=false
-    this.http.post<IApiUserRes>('/profile/update', user, ).subscribe(
-      (response:IApiUserRes) => {
-     
-        Emitters.authEmitter.emit(true);
-        this.store.dispatch(retrieveProfile());
-        Swal.fire('Success','Saved','success')
-      },
-      (err) => {
-        Swal.fire("Error", err.error.message, "error");
-      }
-    );
+  this.http.post<IApiUserRes>('/profile/update', user).subscribe({
+    next: (response: IApiUserRes) => {
+      Emitters.authEmitter.emit(true); // Notify about the auth update
+      this.store.dispatch(retrieveProfile()); // Trigger profile retrieval
+      Swal.fire('Success', 'Saved', 'success'); // Show success notification
+    },
+    error: (err) => {
+      Swal.fire("Error", err.error.message, "error"); // Show error notification
+    }
+  });
+  
     // Add your update logic here
   }}
   closeModal(){
@@ -225,14 +218,12 @@ console.log("submit",this.selectedFile);
   private updateTimeSlotsWithAppointments(appointments: IApiAppointment[]): void {
     console.log('Received Appointments:', appointments);
     const dataArr = appointments.length > 0 ? appointments[0].data : [];
-    let appointment; // Declare it here
-    // console.log('Before loop, availableTimeSlots:', this.availableTimeSlots);
-    // Iterate through availableTimeSlots and update based on appointments
+
+
     this.availableTimeSlots.forEach(timeSlot => {
       console.log('Checking time:', timeSlot.label);
       console.log(dataArr, "appointment");
-    // for (let i = 0; i < dataArr.length; i++) {
-    //   const data = dataArr[i];
+
     const appointment = dataArr.find(data => data.time === timeSlot.label);
   
       
@@ -273,4 +264,9 @@ console.log("submit",this.selectedFile);
   
     
   }
-}}
+}
+ngOnDestroy(): void {
+  
+  this.subscriptions.unsubscribe();
+}
+}

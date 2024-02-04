@@ -1,33 +1,34 @@
-
 <app-nav-bar></app-nav-bar>
 <app-side-bar></app-side-bar>
 <div class="flex h-screen bg-gray-200" :class="{ 'hidden': !isSidebarOpen }">
-    <div class="flex flex-col flex-shrink-0 bg-white border-r">
-        <div class="flex-shrink-0">
-            <!-- Sidebar content -->
-         <!-- <app-side-bar></app-side-bar> -->
-        </div>
+  <div class="flex flex-col flex-shrink-0 bg-white border-r">
+    <div class="flex-shrink-0">
+      <!-- Sidebar content -->
+      <!-- <app-side-bar></app-side-bar> -->
     </div>
+  </div>
 
-    <!-- Page Content -->
-<!-- home.component.html -->
-<div class="input-group flex align-items-center justify-end mr-28">
-  <input [ngStyle]="{ 'height' : '38px','background-color': '#f8f9fa', 'border': '1px solid #ced4da', 'border-radius': '5px'  }" placeholder="Search" type="text" [(ngModel)]="searchText" class="input" (input)="search()" >
-</div>
-<div class="container mx-auto mt-10">
+  <!-- Page Content -->
+  <!-- home.component.html -->
+  <div class="input-group flex align-items-center justify-end mr-28">
+    <input
+      [ngStyle]="{ 'height' : '38px','background-color': '#f8f9fa', 'border': '1px solid #ced4da', 'border-radius': '5px'  }"
+      placeholder="Search" type="text" [(ngModel)]="searchText" class="input" (input)="search()">
+  </div>
+  <div class="container mx-auto mt-10">
     <table class="min-w-full bg-white border border-gray-300">
       <thead>
         <tr>
           <th class="border-b p-2 text-sm">callprovider</th>
-            <th class="border-b p-7 text-sm">Date</th>
-            <th class="border-b p-2 text-sm">Stock Name</th>
-            <th class="border-b p-2 text-sm">At Price</th>
-            <th class="border-b p-2 text-sm">Quantity</th>
-            <th class="border-b p-2 text-sm">Stock Loss</th>
-            <th class="border-b p-2 text-sm">Target</th>
-            <th class="border-b p-2 text-sm">Exit Price</th>
-            <th class="border-b p-2 text-sm">Profit/Loss</th>
-            <th class="border-b p-2 text-sm">Percentage</th>
+          <th class="border-b p-7 text-sm">Date</th>
+          <th class="border-b p-2 text-sm">Stock Name</th>
+          <th class="border-b p-2 text-sm">At Price</th>
+          <th class="border-b p-2 text-sm">Quantity</th>
+          <th class="border-b p-2 text-sm">Stock Loss</th>
+          <th class="border-b p-2 text-sm">Target</th>
+          <th class="border-b p-2 text-sm">Exit Price</th>
+          <th class="border-b p-2 text-sm">Profit/Loss</th>
+          <th class="border-b p-2 text-sm">Percentage</th>
         </tr>
       </thead>
       <tbody>
@@ -46,23 +47,32 @@
             <td class="border-b p-1 text-sm text-red-500">-100</td>
             <td class="border-b p-1 text-sm text-red-500">-10%</td>
           </ng-container>
-          </tr>
+        </tr>
         <!-- Add more rows as needed -->
       </tbody>
     </table>
   </div>
   <div class="ml-8 m-4 bg-slate-200 flex">
 
-    <h1> "Stock trading involves buying and selling shares of publicly traded companies. Traders seek to profit from fluctuations in stock prices, often relying on technical analysis and fundamental analysis to make informed decisions. The stock market is influenced by factors such as company performance, economic indicators, and global events."</h1>
+    <h1> "Stock trading involves buying and selling shares of publicly traded companies. Traders seek to profit from
+      fluctuations in stock prices, often relying on technical analysis and fundamental analysis to make informed
+      decisions. The stock market is influenced by factors such as company performance, economic indicators, and global
+      events."</h1>
   </div>
-      <div class="ml-8   m-4 bg-pink-100 flex">
+  <div class="ml-8   m-4 bg-pink-100 flex">
 
-            <h1> "Stock trading involves buying and selling shares of publicly traded companies. Traders seek to profit from fluctuations in stock prices, often relying on technical analysis and fundamental analysis to make informed decisions. The stock market is influenced by factors such as company performance, economic indicators, and global events."</h1>
-          </div>
-          <div class="ml-8   m-4 bg-slate-200">
+    <h1> "Stock trading involves buying and selling shares of publicly traded companies. Traders seek to profit from
+      fluctuations in stock prices, often relying on technical analysis and fundamental analysis to make informed
+      decisions. The stock market is influenced by factors such as company performance, economic indicators, and global
+      events."</h1>
+  </div>
+  <div class="ml-8   m-4 bg-slate-200">
 
-            <h1> "Stock trading involves buying and selling shares of publicly traded companies. Traders seek to profit from fluctuations in stock prices, often relying on technical analysis and fundamental analysis to make informed decisions. The stock market is influenced by factors such as company performance, economic indicators, and global events."</h1>
-          </div>
+    <h1> "Stock trading involves buying and selling shares of publicly traded companies. Traders seek to profit from
+      fluctuations in stock prices, often relying on technical analysis and fundamental analysis to make informed
+      decisions. The stock market is influenced by factors such as company performance, economic indicators, and global
+      events."</h1>
+  </div>
 </div>
 
 <!-- Toggle Sidebar Button -->

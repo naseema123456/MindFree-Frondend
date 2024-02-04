@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IApiUserRes } from 'src/app/model/usermodel';
+import { IApiUserRes } from '../../../model/usermodel';
+import { Subscription } from 'rxjs';
 
 import Swal from 'sweetalert2';
 
@@ -12,7 +13,8 @@ import Swal from 'sweetalert2';
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.css']
 })
-export class AddUserComponent {
+export class AddUserComponent implements OnDestroy {
+  private subscriptions: Subscription = new Subscription();
   form: FormGroup;
   isSubmitted = false;
 
@@ -27,11 +29,11 @@ export class AddUserComponent {
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-  
+
     });
   }
-  ValidateEmail = (email: string): boolean => {
-    var validRejex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  validateEmail = (email: string): boolean => {
+    const validRejex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     if (email.match(validRejex)) {
       return true;
     } else {
@@ -51,27 +53,31 @@ export class AddUserComponent {
 
   onSubmit(): void {
     this.isSubmitted = true;
-    let user = this.form.getRawValue();
-  
-    if (user.firstName.trim() === '' || user.email === '' || user.password === '' || user.lastName.trim() === '' || user.phoneNumber.trim() === '' ) {
+    const user = this.form.getRawValue();
+
+    if (user.firstName.trim() === '' || user.email === '' || user.password === '' || user.lastName.trim() === '' || user.phoneNumber.trim() === '') {
       Swal.fire('please enter all the fields');
-    }  else if (this.hasFormErrors(this.form)) {
+    } else if (this.hasFormErrors(this.form)) {
       Swal.fire("Check Inputs", 'Enter all input fields properly', "warning");
-    } else if (!this.ValidateEmail(user.email)) {
+    } else if (!this.validateEmail(user.email)) {
       Swal.fire('Error', 'Please enter a valid email', 'error');
     } else {
-      this.http.post<IApiUserRes>('/admin/addUser', user, { withCredentials: true }).subscribe(
-        (response:IApiUserRes) => {
-          console.log(response,"............");
-         let Id=response.id
-          localStorage.setItem('userToken', response.token)
-          this.router.navigate(['/admin/users'],{ queryParams: { id: response.id } });
+      this.http.post<IApiUserRes>('/admin/addUser', user, { withCredentials: true }).subscribe({
+        next: (response: IApiUserRes) => {
+          console.log(response, "............");
+          localStorage.setItem('userToken', response.token);
+          this.router.navigate(['/admin/users'], { queryParams: { id: response.id } });
         },
-        (err) => {
+        error: (err) => {
           console.log(err);
           Swal.fire('Error', err.error.message, 'error');
-        }
-      );
+        },
+
+      });
+
     }
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

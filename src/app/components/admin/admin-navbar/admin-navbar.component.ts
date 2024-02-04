@@ -9,16 +9,14 @@ import { Router } from '@angular/router';
 })
 export class AdminNavbarComponent {
   constructor(
-
-    private http: HttpClient,
     private router: Router
-  ) {}
-  logout(){
+  ) { }
+  logout() {
     console.log('hiiiiii');
-    
-         // Log the user out
-         localStorage.removeItem('adminToken');
-          this.router.navigate(['/admin/login']);
-       
-    }
+
+    // Log the user out
+    localStorage.removeItem('adminToken');
+    this.router.navigate(['/admin/login']);
+
+  }
 }

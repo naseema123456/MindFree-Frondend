@@ -1,49 +1,50 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IApiUserRes } from 'src/app/model/usermodel';
-import { otpverify } from 'src/app/model/usermodel';
+import { IApiUserRes, otpverify } from '../../../model/usermodel';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnDestroy {
+  private subscription: Subscription = new Subscription();
   form: FormGroup;
   isSubmitted = false;
   public showModal: boolean = false;
   public showOtpInput: boolean = false;
   public showEmail: boolean = false;
   public showPasswordInput: boolean = false;
-  
+
   email: string = '';
-  otp: string = ''; 
-  id:string='';
-  confirmPassword:string='';
-  password:string='';
+  otp: string = '';
+  id: string = '';
+  confirmPassword: string = '';
+  password: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private router: Router,
-  ){
+  ) {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-    
+
     });
   }
   passwordsMatch(): boolean {
-   
+
     return this.password === this.confirmPassword;
   }
- 
+
 
   ValidateEmail = (email: string): boolean => {
-    var validRejex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const validRejex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     if (email.match(validRejex)) {
       return true;
     } else {
@@ -51,11 +52,7 @@ export class LoginComponent implements OnInit {
     }
   };
 
-  ngOnInit(): void {
- 
-  }
-  
-  get f(){
+  get f() {
     return this.form.controls;
   }
 
@@ -67,60 +64,63 @@ export class LoginComponent implements OnInit {
   }
 
   toggleModal() {
-    
+
     this.showModal = true;
- this.showEmail=true
+    this.showEmail = true
   }
   sendOtp() {
     console.log('Sending OTP to:', this.email);
-    const otpemail=this.email
-    this.http.get<IApiUserRes>(`/user/forgot/${otpemail}`, { withCredentials: true }).subscribe(
-      (response: IApiUserRes) => {
+    const otpemail = this.email
+    this.http.get<IApiUserRes>(`/user/forgot/${otpemail}`, { withCredentials: true }).subscribe({
+      next: (response: IApiUserRes) => {
         console.log(response, "............");
-        if(response.status==200){
+        if (response.status == 200) {
           this.id = response.id;
-          this.showEmail=false
+          this.showEmail = false;
           this.showOtpInput = true;
-         
-       
-         }else {
-        // Show SweetAlert alert in case of an errorshow
-        this.showModal=false
-        this.showEmail=false
+        } else {
+          // Show SweetAlert alert in case of an error
+          this.showModal = false;
+          this.showEmail = false;
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Failed to send OTP. Please try again.',
+          });
+        }
+      },
+      error: (error) => {
+        console.error('Error:', error);
+        this.showModal = false;
+        this.showEmail = false;
+        // Show SweetAlert alert for general error handling
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'Failed to send OTP. Please try again.',
+          text: 'Something went wrong. Please try again later.',
         });
+      },
+      complete: () => {
+        // Optional: Code to run on completion
+        // This is often left out if there's nothing specific to do when the observable completes.
       }
-    },
-    (error) => {
-      console.error('Error:', error);
-      this.showModal=false
-      this.showEmail=false
-      // Show SweetAlert alert for general error handling
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong. Please try again later.',
-      });
-    }
-  );
-}
-  verifyOtp(){
+    });
+
+  }
+  verifyOtp() {
     console.log('Verifying OTP for id:', this.id);
     console.log('Sending OTP to:', this.otp);
-  this.http.post<otpverify>('/user/verify-otp', { otp: this.otp, id: this.id  }, { withCredentials: true }).subscribe(
+    this.http.post<otpverify>('/user/verify-otp', { otp: this.otp, id: this.id }, { withCredentials: true }).subscribe(
       (response: otpverify) => {
-        
+
         if (response) {
           console.log(response, 'response from verify otp');
 
           if (response.success == true) {
             this.showOtpInput = false;
-            this.showPasswordInput=true
+            this.showPasswordInput = true
           } else {
-            this.showModal=false
+            this.showModal = false
             this.showOtpInput = false;
             Swal.fire({
               title: 'Error!',
@@ -128,33 +128,33 @@ export class LoginComponent implements OnInit {
               icon: 'error',
               confirmButtonText: 'OK',
             });
-         
+
           }
         }
       },
-      (err: any) => {
+      (err: Error) => {
         console.log(err);
-        this.showModal=false
+        this.showModal = false
         this.showOtpInput = false;
-        Swal.fire('Error', err.error.message, 'error');
+        Swal.fire('Error', err.message, 'error');
       }
     );
-    
+
   }
-  updatePassword(){
+  updatePassword() {
     console.log('Verifying OTP for id:', this.id);
-    console.log('Verifying OTP for id:', this.password,this.confirmPassword);
-    if(!this.passwordsMatch()) {
+    console.log('Verifying OTP for id:', this.password, this.confirmPassword);
+    if (!this.passwordsMatch()) {
       Swal.fire("Check Inputs", 'Conform password is mismatch', "warning");
-    }else{
-      this.http.post<IApiUserRes>('/user/resetpassword', { password:this.password,id:this.id }, { withCredentials: true }).subscribe(
-        (response:IApiUserRes) => {
+    } else {
+      this.http.post<IApiUserRes>('/user/resetpassword', { password: this.password, id: this.id }, { withCredentials: true }).subscribe(
+        (response: IApiUserRes) => {
           console.log(response);
           this.showModal = false;
-          this.showEmail=false
-          this.showOtpInput= false;
-           this.showEmail= false;
-        this.showPasswordInput= false;
+          this.showEmail = false
+          this.showOtpInput = false;
+          this.showEmail = false;
+          this.showPasswordInput = false;
           if (response.success == true) {
             Swal.fire({
               icon: 'success',
@@ -184,24 +184,24 @@ export class LoginComponent implements OnInit {
   }
   onSubmit(): void {
     this.isSubmitted = true;
-    let user = this.form.getRawValue();
+    const user = this.form.getRawValue();
 
-    if(user.email === '' || user.password === '') {
+    if (user.email === '' || user.password === '') {
       Swal.fire('Please enter all the fields', 'Warning!');
     } else if (this.hasFormErrors(this.form)) {
       Swal.fire("Check Inputs", 'Enter all input fields properly', "warning");
     } else {
-      this.http.post<IApiUserRes>('/user/login', user, ).subscribe(
-        (response:IApiUserRes) => {
-       
-          console.log(response,"............");
-          let userId = response.user?._id?.toString() ?? '';
-          console.log(response.user,"usrer");
-         console.log(userId,"id");
-         
+      this.http.post<IApiUserRes>('/user/login', user,).subscribe(
+        (response: IApiUserRes) => {
 
-           localStorage.setItem('userToken', response.token)
-           localStorage.setItem('id', userId);
+          console.log(response, "............");
+          const userId = response.user?._id?.toString() ?? '';
+          console.log(response.user, "usrer");
+          console.log(userId, "id");
+
+
+          localStorage.setItem('userToken', response.token)
+          localStorage.setItem('id', userId);
           this.router.navigate(['/user/home']);
         },
         (err) => {
@@ -210,10 +210,14 @@ export class LoginComponent implements OnInit {
       );
     }
   }
-  closeModal(){
-     this.showModal = false;
-     this.showOtpInput = false;
-     this.showEmail = false;
-     this.showPasswordInput = false;
+  closeModal() {
+    this.showModal = false;
+    this.showOtpInput = false;
+    this.showEmail = false;
+    this.showPasswordInput = false;
+  }
+  ngOnDestroy(): void {
+    // Unsubscribe to prevent memory leaks
+    this.subscription.unsubscribe();
   }
 }

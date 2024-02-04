@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ServiceService } from '../../../service/service.service';
-import { alltrade, TradingRecord } from 'src/app/model/trading';
+import { alltrade, TradingRecord } from '../../../model/trading';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   trade: TradingRecord[] = [];
+  private subscription: Subscription = new Subscription();
   filteredtrade: TradingRecord[] = [];
   searchText: string = "";
   responseData: TradingRecord[] = [];
@@ -16,25 +18,30 @@ export class HomeComponent implements OnInit {
   itemsPerPage: number = 5;
   totalItems: number = 0;
   totalPages: number = 0;
-  constructor(private service: ServiceService) {}
+  constructor(private service: ServiceService) { }
 
   ngOnInit(): void {
     this.loadTrade();
   }
 
   loadTrade(): void {
-    this.service.loadTrade().subscribe(
-      (response: alltrade) => {
+    this.service.loadTrade().subscribe({
+      next: (response: alltrade) => {
         this.responseData = response.data || [];
         this.totalPages = Math.ceil(this.responseData.length / this.itemsPerPage);
         this.applyPagination();
         this.trade = [...this.responseData];
         this.filteredtrade = [...this.responseData];
       },
-      (error) => {
+      error: (error) => {
         console.error('Error loading trade:', error);
+      },
+      complete: () => {
+        // Optional: Code to run on completion
+        console.log('Completed loading trade');
       }
-    );
+    });
+
   }
 
   search(): void {
@@ -42,11 +49,11 @@ export class HomeComponent implements OnInit {
       this.filteredtrade = [...this.trade];
       return;
     }
-  
+
     this.filteredtrade = this.trade.filter((trades) => {
       const fullName = `${trades.userId?.firstName} ${trades.userId?.lastName}`;
       const stockName = trades.stockName;
-      
+
       return (
         fullName.toLowerCase().includes(this.searchText.toLowerCase()) ||
         stockName.toLowerCase().includes(this.searchText.toLowerCase())
@@ -65,5 +72,8 @@ export class HomeComponent implements OnInit {
     this.currentPage = newPage;
     this.applyPagination();
   }
-  
+  ngOnDestroy(): void {
+    // Unsubscribe to prevent memory leaks
+    this.subscription.unsubscribe();
+  }
 }

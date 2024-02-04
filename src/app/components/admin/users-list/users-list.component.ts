@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy} from '@angular/core';
 import { ServiceService } from '../../../service/service.service';
-import { appUsers ,User } from 'src/app/model/usermodel';
+import { appUsers ,User } from '../../../model/usermodel';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.css']
 })
-export class UsersListComponent implements OnInit {
+export class UsersListComponent implements OnInit,OnDestroy {
+  private subscriptions: Subscription = new Subscription();
   users: appUsers[] = [];
   filteredUsers: appUsers[] = []; // Initialize here
   searchText: string = '';
@@ -30,8 +32,8 @@ export class UsersListComponent implements OnInit {
   }
 
   loadUsers(): void {
-    this.service.loadUsers().subscribe(
-      (response: appUsers) => {
+    this.service.loadUsers().subscribe({
+      next: (response: appUsers) => {
         if (response.success) {
           this.users = response.data ? [response] : [];
           this.filteredUsers = [...this.users]; 
@@ -40,10 +42,10 @@ export class UsersListComponent implements OnInit {
           console.error('Error loading users:', response.message);
         }
       },
-      (error) => {
+      error: (error) => {
         console.error('Error loading users', error);
       }
-    );
+    });
   }
 
 
@@ -60,8 +62,8 @@ export class UsersListComponent implements OnInit {
     const data = { isBlocked: isBlocked ,_id:_id};
     console.log(data.isBlocked,data._id);
     
-    this.http.post('/admin/Blocked',data, { withCredentials: true }).subscribe(
-      (response) => {
+    this.http.post('/admin/Blocked',data, { withCredentials: true }).subscribe({
+      next:(response) => {
      
         console.log(response,"............");
    
@@ -74,10 +76,10 @@ export class UsersListComponent implements OnInit {
         this.initializeComponent();
      
       },
-      (err) => {
+      error: (err) => {
         Swal.fire("Error", err.error.message, "error");
       }
-    );
+  });
   }
 
 
@@ -104,5 +106,7 @@ export class UsersListComponent implements OnInit {
         data: [user], // Wrap the user in an array
       }));
   }
-  
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 }

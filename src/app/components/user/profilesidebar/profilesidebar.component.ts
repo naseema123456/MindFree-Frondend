@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {userProfileSelector } from 'src/app/components/user/state/user.selectors';
 import { Store, select } from '@ngrx/store'
 import { UserModule } from '../user.module';
-import { IApiAppointment,Appointment } from 'src/app/model/appoinment';
+import { IApiAppointment,Appointment } from '../../../model/appoinment';
 import { ServiceService } from '../../../service/service.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profilesidebar',
   templateUrl: './profilesidebar.component.html',
   styleUrls: ['./profilesidebar.component.css']
 })
-export class ProfilesidebarComponent implements OnInit{
+export class ProfilesidebarComponent implements OnInit,OnDestroy{
+  private subscriptions: Subscription = new Subscription();
 
 
   public role: string = '';
@@ -50,11 +52,14 @@ export class ProfilesidebarComponent implements OnInit{
         // Handle the error scenario appropriately (e.g., show a message to the user)
       },
       complete: () => {
-        // Optional: Any cleanup or finalization logic after the observable is complete
+  
       }
     });
   }
   
+  ngOnDestroy(): void {
   
+    this.subscriptions.unsubscribe();
+  }
 
 }
