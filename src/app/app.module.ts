@@ -19,8 +19,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { PageNotFoundComponent } from './components/pageNotFound/page-not-found.component';
 import { JwtInterceptor } from './interceptore/jwt-interceptor.interceptor';
-// import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import { environment } from 'src/environments/environment';
+
 
 
 

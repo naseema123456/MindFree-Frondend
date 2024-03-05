@@ -6,7 +6,7 @@ export interface User {
     email: string;
     password: string;
     phoneNumber: number | null,
-    role:string
+    role:string,
     isBlocked: boolean;
     profilePic?: string;
     wallet?: number;

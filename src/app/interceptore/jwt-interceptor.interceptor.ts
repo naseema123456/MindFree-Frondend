@@ -11,9 +11,9 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
   intercept(
-    request: HttpRequest<any>,
+    request: HttpRequest<string>,
     next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  ): Observable<HttpEvent<string>> {
     // Check if the request URL is for login or register
     console.log('Bypassing interceptor from JwtInterceptor');
     if (request.url.includes('/login') || request.url.includes('/register')) {

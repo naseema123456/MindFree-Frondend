@@ -1,6 +1,5 @@
 import { createSelector } from "@ngrx/store";
 import { User } from "src/app/model/usermodel";
-import { appProfile } from "./user.state";
 
 export const profileRootSelector = (state: any) => state.userdetails;
 

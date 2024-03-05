@@ -12,7 +12,7 @@ export function isTokenExpired (token: string): boolean {
     return false
   }
   
-  export function parseJwt (token: string): any {
+  export function parseJwt (token: string): string {
     const base64Url = token.split('.')[1]
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
     const jsonPayload = decodeURIComponent(atob(base64))

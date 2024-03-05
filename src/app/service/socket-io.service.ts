@@ -11,7 +11,7 @@ export class SocketIoService {
   //   throw new Error('Method not implemented.');
   // }
   private socket!: Socket;
-  onUserDisconnected$: any;
+  // onUserDisconnected$: any;
 
 
   connectSocket (id: string): void {
@@ -27,7 +27,7 @@ export class SocketIoService {
     })
   }
 
-  emit (eventName: string, data: any): void {
+  emit (eventName: string, data: string): void {
     console.log('Emitting data:', data);
     this.socket.emit(eventName, data)
   }

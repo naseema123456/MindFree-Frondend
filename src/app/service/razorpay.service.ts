@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { payment } from 'src/app/model/feedback';
 declare var Razorpay: any;
 
 @Injectable({

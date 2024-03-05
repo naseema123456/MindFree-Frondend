@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { Message } from '../model/message';
+import { Messages } from '../model/message';
 import { catchError, map } from 'rxjs/operators'
 import { throwError } from 'rxjs';
 
@@ -13,7 +12,7 @@ export class ChatService  {
   constructor(private http: HttpClient) { }
 
 
-  sendMessage(message: Message) {
+  sendMessage(message: Messages) {
     return this.http.post(`user/sendMessage`, message, { withCredentials: true })
       .pipe(map(response => {
         return response
